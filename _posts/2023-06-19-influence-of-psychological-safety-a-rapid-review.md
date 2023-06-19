@@ -21,7 +21,7 @@ Organizational Psychology, Rapid Review_
 
 DOI: <a href="https://doi.org/10.5281/zenodo.8053648" target="_blank">https://doi.org/10.5281/zenodo.8053648</a>
 
-__________________________________________________________________________________________________<br>
+__________________________________________________________________________________________________
 
 ### INTRODUCTION
 
@@ -111,7 +111,7 @@ summary, the pursuit of psychological safety within teams and society at large
 holds promise for the creation of a more inclusive, respectful, and 
 high-functioning environment for all.
 
-__________________________________________________________________________________________________<br>
+__________________________________________________________________________________________________
 
 ### REFERENCES
 
