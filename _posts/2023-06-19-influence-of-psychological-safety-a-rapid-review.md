@@ -24,6 +24,7 @@ DOI: [https://doi.org/10.5281/zenodo.8053648](https://doi.org/10.5281/zenodo.805
 __________________________________________________________________________________________________
 
 
+
 ### INTRODUCTION
 
 This paper presents a rapid review centered on the concept of psychological safety. 
@@ -113,6 +114,7 @@ holds promise for the creation of a more inclusive, respectful, and
 high-functioning environment for all.
 
 __________________________________________________________________________________________________
+
 
 
 ### REFERENCES
