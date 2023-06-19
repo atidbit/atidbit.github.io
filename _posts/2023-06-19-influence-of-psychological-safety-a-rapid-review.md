@@ -8,13 +8,13 @@ title: The Influence of Psychological Safety on Team Dynamics, Performance, and 
 
 <p class="meta">19 June 2023</p>
 
-**Abstract**— _This rapid review provides a summary analysis of the concept of 
+**Abstract** — _This rapid review provides a summary analysis of the concept of 
 psychological safety. The aim of this paper is to highlight the evolution, impact 
 on team dynamics, performance, and its broader societal implications. This rapid 
 research utilizes a streamlined systematic approach to discuss the crucial role 
 psychological safety plays in teams and society_.
 
-**Keywords**— _Psychological Safety, Team Dynamics, Team Performance, Society, 
+**Keywords** — _Psychological Safety, Team Dynamics, Team Performance, Society, 
 Organizational Psychology, Rapid Review_
 
 <a href="https://zenodo.org/record/8053648/files/Influence_of_Psychological_Safety_A_Rapid_Review.pdf?download=1" target="_blank"><img src="/images/pdf-icon.png" align="top"></a> || 
