@@ -23,6 +23,7 @@ DOI: [https://doi.org/10.5281/zenodo.8053648](https://doi.org/10.5281/zenodo.805
 
 __________________________________________________________________________________________________
 
+
 ### INTRODUCTION
 
 This paper presents a rapid review centered on the concept of psychological safety. 
@@ -113,6 +114,7 @@ high-functioning environment for all.
 
 __________________________________________________________________________________________________
 
+
 ### REFERENCES
 
 Carmeli, A., & Gittell, J. H. (2009). High-quality relationships, psychological 
@@ -151,6 +153,7 @@ review of the literature. _Human Resource Management Review, 27_(3), 521-535.
 https://doi.org/10.1016/j.hrmr.2017.01.001
 
 __________________________________________________________________________________________________
+
 
 © 2023. This is an open access article distributed under the terms of the 
 Creative Commons Attribution License ([CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode)), 
