@@ -20,6 +20,7 @@ Organizational Psychology, Rapid Review_
 [![Image](https://github.com/atidbit/psafe/blob/master/_posts%20/images/pdf-icon.png)](https://zenodo.org/record/8053648/files/Influence_of_Psychological_Safety_A_Rapid_Review.pdf?download=1)
 
 DOI: [https://doi.org/10.5281/zenodo.8053648](https://doi.org/10.5281/zenodo.8053648)
+
 __________________________________________________________________________________________________
 
 ### INTRODUCTION
@@ -109,6 +110,7 @@ teams, but it also has far-reaching implications for the broader society. In
 summary, the pursuit of psychological safety within teams and society at large 
 holds promise for the creation of a more inclusive, respectful, and 
 high-functioning environment for all.
+
 __________________________________________________________________________________________________
 
 ### REFERENCES
@@ -147,6 +149,7 @@ improvement efforts in health care teams. _Journal of Organizational Behavior,
 Newman, A., Donohue, R., & Eva, N. (2017). Psychological safety: A systematic 
 review of the literature. _Human Resource Management Review, 27_(3), 521-535. 
 https://doi.org/10.1016/j.hrmr.2017.01.001
+
 __________________________________________________________________________________________________
 
 © 2023. This is an open access article distributed under the terms of the 
