@@ -138,7 +138,7 @@ https://doi.org/10.2307/256287
 Kahn, W. A. (2014). _The power of psychological safety at work_. TEDx Talk.
 
 Khangura, S., Konnyu, K., Cushman, R., Grimshaw, J., & Moher, D. (2012). 
-Evidence summaries: the evolution of a rapid review approach. _Systematic 
+Evidence summaries: The evolution of a rapid review approach. _Systematic 
 Reviews, 1_, 10. https://doi.org/10.1186/2046-4053-1-10
 
 Nembhard, I. M., & Edmondson, A. C. (2006). Making it safe: The effects of 
