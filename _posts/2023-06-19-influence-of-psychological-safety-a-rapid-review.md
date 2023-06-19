@@ -17,7 +17,7 @@ psychological safety plays in teams and society_.
 **Keywords**— _Psychological Safety, Team Dynamics, Team Performance, Society, 
 Organizational Psychology, Rapid Review_
 
-[![Image](/images/pdf-icon.png)](https://zenodo.org/record/8053648/files/Influence_of_Psychological_Safety_A_Rapid_Review.pdf?download=1)
+<a href="https://zenodo.org/record/8053648/files/Influence_of_Psychological_Safety_A_Rapid_Review.pdf?download=1" target="_blank"><img src="/images/pdf-icon.png"></a>
 
 DOI: <a href="https://doi.org/10.5281/zenodo.8053648" target="_blank">https://doi.org/10.5281/zenodo.8053648</a>
 
@@ -156,7 +156,7 @@ ________________________________________________________________________________
 
 
 © 2023. This is an open access article distributed under the terms of the 
-Creative Commons Attribution License ([CC-BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode)), 
+Creative Commons Attribution License (<a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank">CC-BY 4.0</a>), 
 which permits the user to copy, distribute, and transmit the work provided that 
 the original author(s) and source are credited.
 
@@ -169,5 +169,5 @@ and society: A rapid review. _Psychological Safety, Advancement and Review, 1_(1
 https://doi.org/10.5281/zenodo.8053648
 
 Permanent link to this document:
-https://doi.org/10.5281/zenodo.8053648
+<a href="https://doi.org/10.5281/zenodo.8053648" target="_blank">https://doi.org/10.5281/zenodo.8053648</a>
 
