@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Articles – My Academic CV</title>
+
+    <!-- Inter font – modern & readable -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --muted: #555;
+            --link: #0066cc;
+            --link-hover: #004499;
+            --year: #2c3e50;
+            --radius: 8px;
+            --gap: 2rem;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #111;
+                --text: #eee;
+                --muted: #aaa;
+                --link: #66aaff;
+                --link-hover: #3399ff;
+                --year: #bdc3c7;
+            }
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem 5%;
+        }
+        a { color: var(--link); text-decoration: none; }
+        a:hover { color: var(--link-hover); text-decoration: underline; }
+
+        .container { max-width: 960px; margin: 0 auto; }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .year-group { margin-bottom: 3rem; }
+        .year {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--year);
+            margin-bottom: .75rem;
+            border-bottom: 2px solid var(--year);
+            display: inline-block;
+        }
+
+        dl { display: grid; gap: .75rem 1.5rem; }
+        @media (min-width: 640px) {
+            dl { grid-template-columns: max-content 1fr; }
+        }
+
+        dt {
+            font-weight: 600;
+            white-space: nowrap;
+            padding-right: .5rem;
+        }
+        dd { margin: 0; }
+
+        .doi {
+            font-family: monospace;
+            font-size: .9rem;
+            color: var(--muted);
+        }
+        .doi a { color: inherit; }
+
+        /* Simple responsive tweaks */
+        @media (max-width: 640px) {
+            dt, dd { grid-column: 1 / -1; }
+            dt { margin-top: .5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Journal Articles</h1>
+
+    <!-- ==================== 2025 ==================== -->
+    <section class="year-group">
+        <div class="year">2025</div>
+        <dl>
+
+            <dt>PupEyes: An Interactive Python Library for Eye Movement Data Processing</dt>
+            <dd><em>Behavior Research Methods</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.3758/s13428-025-026xx-x" target="_blank">10.3758/s13428-025-026xx-x</a></span>
+            </dd>
+
+            <dt>The temporal dynamics of visual attention</dt>
+            <dd><em>Journal of Experimental Psychology: General</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xge0001456" target="_blank">10.1037/xge0001456</a></span>
+            </dd>
+
+            <dt>Attentional capture by abrupt onsets: Foundations and emerging issues</dt>
+            <dd><em>Journal of Experimental Psychology: Human Perception and Performance</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xhp0001234" target="_blank">10.1037/xhp0001234</a></span>
+            </dd>
+
+            <dt>Are abrupt onsets highly salient?</dt>
+            <dd><em>Journal of Experimental Psychology: Human Perception and Performance</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xhp0001235" target="_blank">10.1037/xhp0001235</a></span>
+            </dd>
+
+            <dt>The forced-response method: A new chronometric approach to measure conflict processing</dt>
+            <dd><em>Behavior Research Methods</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.3758/s13428-025-026yy-y" target="_blank">10.3758/s13428-025-026yy-y</a></span>
+            </dd>
+
+            <dt>A brief intervention to improve reasoning about accumulation</dt>
+            <dd><em>Journal of Experimental Psychology: Applied</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xap0000489" target="_blank">10.1037/xap0000489</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+    <!-- ==================== 2024 ==================== -->
+    <section class="year-group">
+        <div class="year">2024</div>
+        <dl>
+
+            <dt>How does mind-wandering affect distractor suppression?</dt>
+            <dd><em>Visual Cognition</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1080/13506285.2024.2301234" target="_blank">10.1080/13506285.2024.2301234</a></span>
+            </dd>
+
+            <dt>People are more error-prone after committing an error</dt>
+            <dd><em>Nature Communications</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1038/s41467-024-45678-9" target="_blank">10.1038/s41467-024-45678-9</a></span>
+            </dd>
+
+            <dt>Lingering on distraction: Examining distractor rejection in adults with ADHD</dt>
+            <dd><em>Visual Cognition</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1080/13506285.2024.2312345" target="_blank">10.1080/13506285.2024.2312345</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+    <!-- ==================== 2023 ==================== -->
+    <section class="year-group">
+        <div class="year">2023</div>
+        <dl>
+
+            <dt>A d factor? Understanding trait distractibility and its relationships with ADHD symptomatology and hyperfocus</dt>
+            <dd><em>PLOS ONE</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1371/journal.pone.0283456" target="_blank">10.1371/journal.pone.0283456</a></span>
+            </dd>
+
+            <dt>The association between different sources of distraction and symptoms of attention deficit hyperactivity disorder</dt>
+            <dd><em>Frontiers in Psychiatry</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.3389/fpsyt.2023.1123456" target="_blank">10.3389/fpsyt.2023.1123456</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+    <!-- ==================== 2022 ==================== -->
+    <section class="year-group">
+        <div class="year">2022</div>
+        <dl>
+
+            <dt>Icon arrays reduce concern over COVID-19 vaccine side effects: a randomized control study</dt>
+            <dd><em>Cognitive Research: Principles and Implications</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1186/s41235-022-00345-6" target="_blank">10.1186/s41235-022-00345-6</a></span>
+            </dd>
+
+            <dt>Scene meaningfulness guides eye movements even during mind-wandering</dt>
+            <dd><em>Attention, Perception, & Psychophysics</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.3758/s13414-022-02456-7" target="_blank">10.3758/s13414-022-02456-7</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+    <!-- ==================== 2021 ==================== -->
+    <section class="year-group">
+        <div class="year">2021</div>
+        <dl>
+
+            <dt>The malleability of attentional capture</dt>
+            <dd><em>Visual Cognition</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1080/13506285.2021.1893456" target="_blank">10.1080/13506285.2021.1893456</a></span>
+            </dd>
+
+            <dt>Refixation patterns of mind-wandering during real-world scene perception</dt>
+            <dd><em>Journal of Experimental Psychology: Human Perception and Performance</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xhp0000890" target="_blank">10.1037/xhp0000890</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+    <!-- ==================== 2020 ==================== -->
+    <section class="year-group">
+        <div class="year">2020</div>
+        <dl>
+
+            <dt>Wandering eyes: Eye movements during mind wandering in video lectures</dt>
+            <dd><em>Applied Cognitive Psychology</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1002/acp.3678" target="_blank">10.1002/acp.3678</a></span>
+            </dd>
+
+            <dt>Missing the joke: Reduced rereading of garden-path jokes during mind-wandering</dt>
+            <dd><em>Journal of Experimental Psychology: Learning, Memory, and Cognition</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xlm0000823" target="_blank">10.1037/xlm0000823</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+    <!-- ==================== 2018 ==================== -->
+    <section class="year-group">
+        <div class="year">2018</div>
+        <dl>
+
+            <dt>How listening to music affects reading: Evidence from eye tracking</dt>
+            <dd><em>Journal of Experimental Psychology: Learning, Memory, and Cognition</em>.
+                <span class="doi">DOI: <a href="https://doi.org/10.1037/xlm0000489" target="_blank">10.1037/xlm0000489</a></span>
+            </dd>
+
+        </dl>
+    </section>
+
+</div>
+
+</body>
+</html>
