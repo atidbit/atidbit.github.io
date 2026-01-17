@@ -32,13 +32,15 @@ meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_
 **Abstract** — _Psychological safety is a key component of healthy and effective organizations, particularly in
 high-risk and structured environments such as the federal government. The leadership behaviors
 associated with the theory of transformational leadership are important in the ability to
-effectively foster a climate of psychological safety. The purpose of this quantitative nonexperimental correlational study was to determine if and to what extent a relationship existed
+effectively foster a climate of psychological safety. The purpose of this quantitative nonexperimental
+correlational study was to determine if and to what extent a relationship existed
 between supervisors’ transformational leadership behaviors and employees’ psychological safety
 climate among U.S. Department of the Navy civilians. A total of 9,160 archival responses from
 the Federal Employee Viewpoint Survey were analyzed using Spearman’s rank-order correlation
 and linear regression. Results revealed significant positive relationships between all
 transformational leadership dimensions and psychological safety climate, with the strongest
-correlation observed between intellectual stimulation and psychological safety (rs[9160] = .783,p < .001). Regression analysis confirmed that intellectual stimulation had the strongest predictive
+correlation observed between intellectual stimulation and psychological safety (rs[9160] = .783,p < .001).
+Regression analysis confirmed that intellectual stimulation had the strongest predictive
 power, while individualized consideration also showed moderate predictive strength.
 Inspirational motivation and idealized influence, while correlated with psychological safety, did
 not significantly contribute to its prediction when considered alongside the other dimensions.
