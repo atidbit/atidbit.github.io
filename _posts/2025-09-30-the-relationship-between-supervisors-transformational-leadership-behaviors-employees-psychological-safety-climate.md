@@ -1,5 +1,5 @@
 ---
-layout: post
+
 title: 'The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians'
 meta1: '<meta name="citation_title" content="The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians">'
 meta2: '<meta name="citation_author" content="Brown, Vernon S.">'
