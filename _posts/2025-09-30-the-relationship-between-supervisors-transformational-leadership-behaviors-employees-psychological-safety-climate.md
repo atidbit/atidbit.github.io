@@ -4,7 +4,7 @@ title: 'The Relationship Between Supervisors’ Transformational Leadership Beha
 meta1: '<meta name="citation_title" content="The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians">'
 meta2: '<meta name="citation_author" content="Brown, Vernon S.">'
 meta3: '<meta name="citation_publication_date" content="2025/09/30">'
-meta4: '<meta name="citation_journal_title" content="CIU Dissertation">'
+meta4: '<meta name="citation_journal_title" content="CIU Dissertations">'
 meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf">'
 ---
 
