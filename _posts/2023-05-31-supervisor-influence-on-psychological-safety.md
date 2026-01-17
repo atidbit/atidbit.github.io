@@ -5,7 +5,7 @@ meta1: '<meta name="citation_title" content="Supervisor Influence on Psychologic
 meta2: '<meta name="citation_author" content="Brown, Vernon S.">'
 meta3: '<meta name="citation_publication_date" content="2023/05/31">'
 meta4: '<meta name="citation_journal_title" content="GCU Dissertation">'
-meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf">'
+meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_GCU_DIS_EdD-2023.pdf">'
 ---
 
 {{ page.title }}
