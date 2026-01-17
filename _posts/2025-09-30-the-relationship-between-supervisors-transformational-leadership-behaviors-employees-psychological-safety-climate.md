@@ -8,6 +8,8 @@ meta4: '<meta name="citation_journal_title" content="CIU Dissertation">'
 meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf">'
 ---
 
+{{ The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians }}
+================
 <!-- Add PDF Button Start -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
