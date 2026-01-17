@@ -4,7 +4,7 @@ title: 'Supervisor Influence on Psychological Safety in U.S. Federal Government 
 meta1: '<meta name="citation_title" content="Supervisor Influence on Psychological Safety in U.S. Federal Government Organizations: A Qualitative Descriptive Study">'
 meta2: '<meta name="citation_author" content="Brown, Vernon S.">'
 meta3: '<meta name="citation_publication_date" content="2023/05/31">'
-meta4: '<meta name="citation_journal_title" content="GCU Dissertation">'
+meta4: '<meta name="citation_journal_title" content="GCU Dissertations">'
 meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_GCU_DIS_EdD-2023.pdf">'
 ---
 
