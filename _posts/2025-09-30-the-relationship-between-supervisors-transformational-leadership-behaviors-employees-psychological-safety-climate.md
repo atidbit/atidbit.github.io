@@ -50,3 +50,7 @@ psychological safety climate, organizational leadership, federal employee viewpo
 government organization, United States Navy, government civilian employees_
 
 <a href="https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf" target="_blank"><button class="btn"><i class="fa fa-download"></i> PDF</button></a>
+
+## Citation
+
+Brown, V. S. (2025). _The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians_ [Doctoral dissertation, Columbia International University]. Atidbit Open Repository. https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf
