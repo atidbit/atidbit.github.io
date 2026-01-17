@@ -53,4 +53,4 @@ government organization, United States Navy, government civilian employees_
 
 ## Citation
 
-Brown, V. S. (2025). _The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians_ [Doctoral dissertation, Columbia International University]. Atidbit Open Repository. https://atidbit.io/dissertation/09302025/
+Brown, V. S. (2025). _The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians_ [Doctoral dissertation, Columbia International University]. Atidbit Open Repository. https://atidbit.io/dissertation/09302025
