@@ -1,4 +1,4 @@
----
+ ---
 layout: dissgcu
 title: 'Supervisor Influence on Psychological Safety in U.S. Federal Government Organizations: A Qualitative Descriptive Study'
 meta1: '<meta name="citation_title" content="Supervisor Influence on Psychological Safety in U.S. Federal Government Organizations: A Qualitative Descriptive Study">'
