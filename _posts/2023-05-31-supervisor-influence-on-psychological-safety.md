@@ -1,13 +1,15 @@
 ---
-layout: post
-title: 'The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians'
-meta1: '<meta name="citation_title" content="The Relationship Between Supervisors’ Transformational Leadership Behaviors & Employees’ Psychological Safety Climate Among U.S. Department of the Navy Civilians">'
+layout: diss
+title: 'Supervisor Influence on Psychological Safety in U.S. Federal Government Organizations: A Qualitative Descriptive Study'
+meta1: '<meta name="citation_title" content="Supervisor Influence on Psychological Safety in U.S. Federal Government Organizations: A Qualitative Descriptive Study">'
 meta2: '<meta name="citation_author" content="Brown, Vernon S.">'
-meta3: '<meta name="citation_publication_date" content="2025/09/30">'
-meta4: '<meta name="citation_journal_title" content="CIU Dissertation">'
+meta3: '<meta name="citation_publication_date" content="2023/05/31">'
+meta4: '<meta name="citation_journal_title" content="GCU Dissertation">'
 meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf">'
 ---
 
+{{ page.title }}
+================
 <!-- Add PDF Button Start -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
@@ -25,26 +27,34 @@ meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_
 }
 </style>
 <!-- Add PDF Button End -->
-<p class="meta">30 September 2025</p>
+<p class="meta">31 May 2023</p>
 
-**Abstract** — _Psychological safety is a key component of healthy and effective organizations, particularly in
-high-risk and structured environments such as the federal government. The leadership behaviors
-associated with the theory of transformational leadership are important in the ability to
-effectively foster a climate of psychological safety. The purpose of this quantitative nonexperimental correlational study was to determine if and to what extent a relationship existed
-between supervisors’ transformational leadership behaviors and employees’ psychological safety
-climate among U.S. Department of the Navy civilians. A total of 9,160 archival responses from
-the Federal Employee Viewpoint Survey were analyzed using Spearman’s rank-order correlation
-and linear regression. Results revealed significant positive relationships between all
-transformational leadership dimensions and psychological safety climate, with the strongest
-correlation observed between intellectual stimulation and psychological safety (rs[9160] = .783,p < .001). Regression analysis confirmed that intellectual stimulation had the strongest predictive
-power, while individualized consideration also showed moderate predictive strength.
-Inspirational motivation and idealized influence, while correlated with psychological safety, did
-not significantly contribute to its prediction when considered alongside the other dimensions.
-The findings of the study support the role of transformational leadership in building a safe and
-inclusive organizational climate in a high-performing government workplace_.
+**Abstract** — _The purpose of this qualitative descriptive study was to explore how federal government
+employees of Hawaii described psychological safety and their supervisors’ influence on
+psychological safety in the workplace. Transformational leadership theory and the
+psychosocial safety climate (PSC) theory served as the theoretical foundation for this study
+to explore the phenomenon of psychological safety in the workplace. Two research
+questions (RQs) were used during this investigation: 1) How do federal government
+employees describe psychological safety in their workplace? and 2) How do federal
+government employees describe their supervisors’ influence on psychological safety in
+their workplace? The study targeted an estimated 12,053 employees in federal government
+organizations from the Federal Employees of the U.S. Government LinkedIn Group to
+achieve a total of 46 participants for the questionnaire that was delivered online through
+SurveyMonkey. Among the questionnaire participants, 14 participated in a follow-on
+Zoom interview. Thematic analysis of the data was conducted using Braun and Clarke’s
+six-step process. As a result, six themes were identified to answer the RQs. The findings
+suggest that behavioral output, resulting from motivation and organization policy, affect
+how well employees contribute, express ideas, speak up, and engage in a psychologically
+safe workplace. For future research, it is recommended that this study be replicated to
+expand to different government populations and at all levels of government (e.g., local,
+state, federal) throughout the United States_.
 
-**Keywords** — _leadership behaviors, transformational leadership, psychological safety,
-psychological safety climate, organizational leadership, federal employee viewpoint survey,
-government organization, United States Navy, government civilian employees_
+**Keywords** — _Psychological safety, transformational leadership, psychosocial safety
+climate, Hawaii, federal employees, workplace safety, engagement, motivation,
+adaptability, organizational development, organizational leadership, work performance_
 
-<a href="https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf" target="_blank"><button class="btn"><i class="fa fa-download"></i> PDF</button></a>
+<a href="https://atidbit.io/files/BrownVS_GCU_DIS_EdD-2023.pdf" target="_blank"><button class="btn"><i class="fa fa-download"></i> PDF</button></a>
+
+## Citation
+
+Brown, V. S. (2023). _Supervisor Influence on Psychological Safety in U.S. Federal Government Organizations: A Qualitative Descriptive Study_ [Doctoral dissertation, Grand Canyon University]. Atidbit Open Repository. https://atidbit.io/dissertation/05312023
