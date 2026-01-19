@@ -2,7 +2,7 @@
 layout: post
 title: The Git Parable
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
