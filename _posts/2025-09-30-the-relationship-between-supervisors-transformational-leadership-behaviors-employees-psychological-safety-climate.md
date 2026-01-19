@@ -39,7 +39,7 @@ climate among U.S. Department of the Navy civilians. A total of 9,160 archival r
 the Federal Employee Viewpoint Survey were analyzed using Spearman’s rank-order correlation
 and linear regression. Results revealed significant positive relationships between all
 transformational leadership dimensions and psychological safety climate, with the strongest
-correlation observed between intellectual stimulation and psychological safety (rs[9160] = .783,p < .001).
+correlation observed between intellectual stimulation and psychological safety (rs[9160] = .783, p < .001).
 Regression analysis confirmed that intellectual stimulation had the strongest predictive
 power, while individualized consideration also showed moderate predictive strength.
 Inspirational motivation and idealized influence, while correlated with psychological safety, did
