@@ -62,6 +62,18 @@
 <priority>0.5</priority>
 </url>
 <url>
+<loc>https://atidbit.io/files/EdD-Defense/</loc>
+<lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.5</priority>
+</url>
+<url>
+<loc>https://atidbit.io/files/PhD-Defense/</loc>
+<lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.5</priority>
+</url>
+<url>
 <loc>https://atidbit.io/doc-b/publications/supervisor-influence-on-employee-psychological-safety-qualitative-protocols/</loc>
 <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
 <changefreq>always</changefreq>
