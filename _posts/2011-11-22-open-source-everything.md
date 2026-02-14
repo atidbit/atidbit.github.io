@@ -2,7 +2,7 @@
 layout: post
 title: Open Source (Almost) Everything
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
