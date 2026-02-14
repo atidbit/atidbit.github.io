@@ -2,7 +2,7 @@
 layout: post
 title: Farewell GitHub, Hello Immersive Computing
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
