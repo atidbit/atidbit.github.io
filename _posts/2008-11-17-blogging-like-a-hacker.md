@@ -2,7 +2,7 @@
 layout: post
 title: Blogging Like a Hacker
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
