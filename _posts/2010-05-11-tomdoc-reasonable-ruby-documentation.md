@@ -2,7 +2,7 @@
 layout: post
 title: TomDoc - Reasonable Ruby Documentation
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
