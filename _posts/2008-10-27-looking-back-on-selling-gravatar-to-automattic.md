@@ -2,7 +2,7 @@
 layout: post
 title: Looking back on Selling Gravatar to Automattic
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
