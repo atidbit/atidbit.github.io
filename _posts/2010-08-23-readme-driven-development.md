@@ -2,7 +2,7 @@
 layout: post
 title: Readme Driven Development
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
