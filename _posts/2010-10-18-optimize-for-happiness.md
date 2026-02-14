@@ -2,7 +2,7 @@
 layout: post
 title: Optimize for Happiness
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
