@@ -2,7 +2,7 @@
 layout: post
 title: Replicated - An Easier Path from SaaS to Enterprise
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
