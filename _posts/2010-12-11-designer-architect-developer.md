@@ -2,7 +2,7 @@
 layout: post
 title: Designer, Architect, Developer
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
