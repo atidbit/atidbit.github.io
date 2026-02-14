@@ -2,7 +2,7 @@
 layout: post
 title: Ten Lessons from GitHub's First Year
 ---
-
+<meta name="robots" content="noindex">
 {{ page.title }}
 ================
 
