@@ -29,28 +29,28 @@ meta5: '<meta name="citation_pdf_url" content="https://atidbit.io/files/BrownVS_
 <!-- Add PDF Button End -->
 <p class="meta">31 May 2023</p>
 
-**Abstract** — _The purpose of this qualitative descriptive study was to explore how federal government
-employees of Hawaii described psychological safety and their supervisors’ influence on
-psychological safety in the workplace. Transformational leadership theory and the
-psychosocial safety climate (PSC) theory served as the theoretical foundation for this study
-to explore the phenomenon of psychological safety in the workplace. Two research
-questions (RQs) were used during this investigation: 1) How do federal government
-employees describe psychological safety in their workplace? and 2) How do federal
-government employees describe their supervisors’ influence on psychological safety in
-their workplace? The study targeted an estimated 12,053 employees in federal government
-organizations from the Federal Employees of the U.S. Government LinkedIn Group to
-achieve a total of 46 participants for the questionnaire that was delivered online through
-SurveyMonkey. Among the questionnaire participants, 14 participated in a follow-on
-Zoom interview. Thematic analysis of the data was conducted using Braun and Clarke’s
-six-step process. As a result, six themes were identified to answer the RQs. The findings
-suggest that behavioral output, resulting from motivation and organization policy, affect
-how well employees contribute, express ideas, speak up, and engage in a psychologically
-safe workplace. For future research, it is recommended that this study be replicated to
-expand to different government populations and at all levels of government (e.g., local,
+**Abstract** — _The purpose of this qualitative descriptive study was to explore how federal government 
+employees of Hawaii described psychological safety and their supervisors’ influence on 
+psychological safety in the workplace. Transformational leadership theory and the 
+psychosocial safety climate (PSC) theory served as the theoretical foundation for this study 
+to explore the phenomenon of psychological safety in the workplace. Two research 
+questions (RQs) were used during this investigation: 1) How do federal government 
+employees describe psychological safety in their workplace? and 2) How do federal 
+government employees describe their supervisors’ influence on psychological safety in 
+their workplace? The study targeted an estimated 12,053 employees in federal government 
+organizations from the Federal Employees of the U.S. Government LinkedIn Group to 
+achieve a total of 46 participants for the questionnaire that was delivered online through 
+SurveyMonkey. Among the questionnaire participants, 14 participated in a follow-on 
+Zoom interview. Thematic analysis of the data was conducted using Braun and Clarke’s 
+six-step process. As a result, six themes were identified to answer the RQs. The findings 
+suggest that behavioral output, resulting from motivation and organization policy, affect 
+how well employees contribute, express ideas, speak up, and engage in a psychologically 
+safe workplace. For future research, it is recommended that this study be replicated to 
+expand to different government populations and at all levels of government (e.g., local, 
 state, federal) throughout the United States_.
 
-**Keywords** — _Psychological safety, transformational leadership, psychosocial safety
-climate, Hawaii, federal employees, workplace safety, engagement, motivation,
+**Keywords** — _Psychological safety, transformational leadership, psychosocial safety 
+climate, Hawaii, federal employees, workplace safety, engagement, motivation, 
 adaptability, organizational development, organizational leadership, work performance_
 
 <a href="https://atidbit.io/files/BrownVS_GCU_DIS_EdD-2023.pdf" target="_blank"><button class="btn"><i class="fa fa-download"></i> PDF</button></a>
