@@ -1,5 +1,5 @@
 ---
-layout: dissgcu
+layout: dissijbss
 title: 'Management Influence on Psychological Safety: Results from Employees in U.S. Federal Government Organizations in the State of Hawaii'
 meta1: '<meta name="citation_title" content="Management Influence on Psychological Safety: Results from Employees in U.S. Federal Government Organizations in the State of Hawaii">'
 meta2: '<meta name="citation_author" content="Brown, Vernon S.">'
