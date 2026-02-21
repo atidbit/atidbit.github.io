@@ -32,7 +32,7 @@ meta8: '<meta name="citation_pdf_url" content="https://atidbit.io/files/16.pdf">
 <!-- Add PDF Button End -->
 <p class="meta">27 December 2025</p>
 
-**Abstract** — _This qualitative descriptive study aimed to investigate how federal employees in Hawaii 
+**Abstract** — _Thiis qualitative descriptive study aimed to investigate how federal employees in Hawaii 
 described psychological safety and the impact of their supervisors’ influence on psychological safety at 
 work. This study examined the phenomena of psychological safety in the workplace using transformational 
 leadership theory and the psychosocial safety climate (PSC) theory as its theoretical underpinnings. In 
