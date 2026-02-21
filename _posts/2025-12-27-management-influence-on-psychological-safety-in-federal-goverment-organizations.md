@@ -42,7 +42,7 @@ supervisors’ influence on psychological safety in their workplace? To reach a 
 the study, the study recruited from an estimated 12,053 federal government workers who were members of the 
 LinkedIn group for Federal Employees of the U.S. Government. In addition to the study questionnaire, 14 of 
 the questionnaire respondents took part in a subsequent Zoom interview. The six-step method developed by 
-Braun and Clarke was used to analyze the data for relevant themes. Six themes were consequently found to address
+Braun and Clarke was used to analyze the data for relevant themes. Six themes were consequently found to address 
 the RQs. The results imply that motivation and organizational policy have an impact on behavioral output, which 
 in turn affects how well individuals contribute, express ideas, speak up, and participate in a psychologically 
 safe workplace. It is advised that this study be replicated for future research in order to cover all levels of 
