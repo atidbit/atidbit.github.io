@@ -68,6 +68,12 @@
 <priority>0.5</priority>
 </url>
 <url>
+<loc>https://atidbit.io/files/16.pdf</loc>
+<lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.5</priority>
+</url>
+<url>
 <loc>https://atidbit.io/files/EdD-Defense/</loc>
 <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
 <changefreq>always</changefreq>
