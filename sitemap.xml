@@ -121,4 +121,10 @@
 <changefreq>always</changefreq>
 <priority>0.5</priority>
 </url>
+<url>
+<loc>https://atidbit.io/doc-b/publications/when-voice-fails-to-scale/</loc>
+<lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+<changefreq>always</changefreq>
+<priority>0.5</priority>
+</url>
 </urlset>
