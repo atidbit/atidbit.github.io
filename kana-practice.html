@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Hiragana & Katakana Practice</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1e293b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --success: #22c55e;
+      --error: #ef4444;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .btn-group {
+      display: flex;
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .btn-group button {
+      flex: 1;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .btn-group button.active {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-group button:not(.active):hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    .card-container {
+      width: 100%;
+      max-width: 360px;
+      perspective: 1000px;
+      margin-bottom: 20px;
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s ease;
+      cursor: pointer;
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    .card-front {
+      background: linear-gradient(145deg, #ffffff, #f1f5f9);
+    }
+
+    .card-back {
+      background: linear-gradient(145deg, #eff6ff, #dbeafe);
+      transform: rotateY(180deg);
+    }
+
+    .kana-char {
+      font-size: 7rem;
+      font-weight: 400;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .romaji {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .card-label {
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 360px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+
+    /* Quiz mode */
+    .quiz-area {
+      width: 100%;
+      max-width: 360px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .quiz-area.active {
+      display: flex;
+    }
+
+    .quiz-char {
+      font-size: 6.5rem;
+      background: var(--card);
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      user-select: none;
+    }
+
+    .quiz-input-row {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .quiz-input {
+      flex: 1;
+      padding: 14px 16px;
+      font-size: 1.1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .quiz-input:focus {
+      border-color: var(--accent);
+    }
+
+    .quiz-input.correct {
+      border-color: var(--success);
+      background: #f0fdf4;
+    }
+
+    .quiz-input.wrong {
+      border-color: var(--error);
+      background: #fef2f2;
+    }
+
+    .feedback {
+      font-size: 1rem;
+      font-weight: 600;
+      min-height: 24px;
+      text-align: center;
+    }
+
+    .feedback.correct {
+      color: var(--success);
+    }
+
+    .feedback.wrong {
+      color: var(--error);
+    }
+
+    .score {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .progress {
+      width: 100%;
+      max-width: 360px;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 24px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Hide flashcard when in quiz */
+    .flash-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .flash-area.hidden {
+      display: none;
+    }
+
+    @media (max-width: 400px) {
+      .kana-char {
+        font-size: 5.5rem;
+      }
+      .quiz-char {
+        font-size: 5rem;
+        height: 160px;
+      }
+      .romaji {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>あいう Practice</h1>
+  <p class="subtitle">Hiragana & Katakana Flashcards + Quiz</p>
+
+  <div class="controls">
+    <div class="btn-group" id="scriptToggle">
+      <button data-script="hiragana" class="active">Hiragana</button>
+      <button data-script="katakana">Katakana</button>
+      <button data-script="both">Both</button>
+    </div>
+    <div class="btn-group" id="modeToggle">
+      <button data-mode="flash" class="active">Flashcards</button>
+      <button data-mode="quiz">Quiz</button>
+    </div>
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Flashcard Area -->
+  <div class="flash-area" id="flashArea">
+    <div class="card-container">
+      <div class="flashcard" id="flashcard">
+        <div class="card-face card-front">
+          <span class="card-label" id="frontLabel">Hiragana</span>
+          <div class="kana-char" id="kanaDisplay">あ</div>
+          <div class="hint">Tap to reveal</div>
+        </div>
+        <div class="card-face card-back">
+          <span class="card-label">Romaji</span>
+          <div class="romaji" id="romajiDisplay">a</div>
+          <div class="hint">Tap to flip back</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" id="prevBtn">← Prev</button>
+      <button class="btn btn-primary" id="nextBtn">Next →</button>
+      <button class="btn btn-secondary" id="randomBtn">Random</button>
+    </div>
+
+    <div class="stats">
+      <span id="cardCounter">1 / 71</span>
+    </div>
+  </div>
+
+  <!-- Quiz Area -->
+  <div class="quiz-area" id="quizArea">
+    <div class="quiz-char" id="quizChar">あ</div>
+    <div class="quiz-input-row">
+      <input type="text" class="quiz-input" id="quizInput" placeholder="Type romaji..." autocomplete="off" autocapitalize="off" spellcheck="false">
+      <button class="btn btn-primary" id="checkBtn">Check</button>
+    </div>
+    <div class="feedback" id="feedback"></div>
+    <div class="actions">
+      <button class="btn btn-secondary" id="skipBtn">Skip</button>
+      <button class="btn btn-primary" id="nextQuizBtn" style="display:none;">Next</button>
+    </div>
+    <div class="score">
+      Score: <strong id="scoreCorrect">0</strong> correct / <strong id="scoreTotal">0</strong> attempts
+    </div>
+  </div>
+
+  <footer>
+    Basic + Dakuten + Handakuten • No data saved • Pure offline
+  </footer>
+
+  <script>
+    // Complete kana data: basic + dakuten + handakuten
+    const hiragana = [
+      { char: "あ", romaji: "a" }, { char: "い", romaji: "i" }, { char: "う", romaji: "u" }, { char: "え", romaji: "e" }, { char: "お", romaji: "o" },
+      { char: "か", romaji: "ka" }, { char: "き", romaji: "ki" }, { char: "く", romaji: "ku" }, { char: "け", romaji: "ke" }, { char: "こ", romaji: "ko" },
+      { char: "さ", romaji: "sa" }, { char: "し", romaji: "shi" }, { char: "す", romaji: "su" }, { char: "せ", romaji: "se" }, { char: "そ", romaji: "so" },
+      { char: "た", romaji: "ta" }, { char: "ち", romaji: "chi" }, { char: "つ", romaji: "tsu" }, { char: "て", romaji: "te" }, { char: "と", romaji: "to" },
+      { char: "な", romaji: "na" }, { char: "に", romaji: "ni" }, { char: "ぬ", romaji: "nu" }, { char: "ね", romaji: "ne" }, { char: "の", romaji: "no" },
+      { char: "は", romaji: "ha" }, { char: "ひ", romaji: "hi" }, { char: "ふ", romaji: "fu" }, { char: "へ", romaji: "he" }, { char: "ほ", romaji: "ho" },
+      { char: "ま", romaji: "ma" }, { char: "み", romaji: "mi" }, { char: "む", romaji: "mu" }, { char: "め", romaji: "me" }, { char: "も", romaji: "mo" },
+      { char: "や", romaji: "ya" }, { char: "ゆ", romaji: "yu" }, { char: "よ", romaji: "yo" },
+      { char: "ら", romaji: "ra" }, { char: "り", romaji: "ri" }, { char: "る", romaji: "ru" }, { char: "れ", romaji: "re" }, { char: "ろ", romaji: "ro" },
+      { char: "わ", romaji: "wa" }, { char: "を", romaji: "wo" }, { char: "ん", romaji: "n" },
+      // Dakuten
+      { char: "が", romaji: "ga" }, { char: "ぎ", romaji: "gi" }, { char: "ぐ", romaji: "gu" }, { char: "げ", romaji: "ge" }, { char: "ご", romaji: "go" },
+      { char: "ざ", romaji: "za" }, { char: "じ", romaji: "ji" }, { char: "ず", romaji: "zu" }, { char: "ぜ", romaji: "ze" }, { char: "ぞ", romaji: "zo" },
+      { char: "だ", romaji: "da" }, { char: "ぢ", romaji: "ji" }, { char: "づ", romaji: "zu" }, { char: "で", romaji: "de" }, { char: "ど", romaji: "do" },
+      { char: "ば", romaji: "ba" }, { char: "び", romaji: "bi" }, { char: "ぶ", romaji: "bu" }, { char: "べ", romaji: "be" }, { char: "ぼ", romaji: "bo" },
+      // Handakuten
+      { char: "ぱ", romaji: "pa" }, { char: "ぴ", romaji: "pi" }, { char: "ぷ", romaji: "pu" }, { char: "ぺ", romaji: "pe" }, { char: "ぽ", romaji: "po" }
+    ];
+
+    const katakana = [
+      { char: "ア", romaji: "a" }, { char: "イ", romaji: "i" }, { char: "ウ", romaji: "u" }, { char: "エ", romaji: "e" }, { char: "オ", romaji: "o" },
+      { char: "カ", romaji: "ka" }, { char: "キ", romaji: "ki" }, { char: "ク", romaji: "ku" }, { char: "ケ", romaji: "ke" }, { char: "コ", romaji: "ko" },
+      { char: "サ", romaji: "sa" }, { char: "シ", romaji: "shi" }, { char: "ス", romaji: "su" }, { char: "セ", romaji: "se" }, { char: "ソ", romaji: "so" },
+      { char: "タ", romaji: "ta" }, { char: "チ", romaji: "chi" }, { char: "ツ", romaji: "tsu" }, { char: "テ", romaji: "te" }, { char: "ト", romaji: "to" },
+      { char: "ナ", romaji: "na" }, { char: "ニ", romaji: "ni" }, { char: "ヌ", romaji: "nu" }, { char: "ネ", romaji: "ne" }, { char: "ノ", romaji: "no" },
+      { char: "ハ", romaji: "ha" }, { char: "ヒ", romaji: "hi" }, { char: "フ", romaji: "fu" }, { char: "ヘ", romaji: "he" }, { char: "ホ", romaji: "ho" },
+      { char: "マ", romaji: "ma" }, { char: "ミ", romaji: "mi" }, { char: "ム", romaji: "mu" }, { char: "メ", romaji: "me" }, { char: "モ", romaji: "mo" },
+      { char: "ヤ", romaji: "ya" }, { char: "ユ", romaji: "yu" }, { char: "ヨ", romaji: "yo" },
+      { char: "ラ", romaji: "ra" }, { char: "リ", romaji: "ri" }, { char: "ル", romaji: "ru" }, { char: "レ", romaji: "re" }, { char: "ロ", romaji: "ro" },
+      { char: "ワ", romaji: "wa" }, { char: "ヲ", romaji: "wo" }, { char: "ン", romaji: "n" },
+      // Dakuten
+      { char: "ガ", romaji: "ga" }, { char: "ギ", romaji: "gi" }, { char: "グ", romaji: "gu" }, { char: "ゲ", romaji: "ge" }, { char: "ゴ", romaji: "go" },
+      { char: "ザ", romaji: "za" }, { char: "ジ", romaji: "ji" }, { char: "ズ", romaji: "zu" }, { char: "ゼ", romaji: "ze" }, { char: "ゾ", romaji: "zo" },
+      { char: "ダ", romaji: "da" }, { char: "ヂ", romaji: "ji" }, { char: "ヅ", romaji: "zu" }, { char: "デ", romaji: "de" }, { char: "ド", romaji: "do" },
+      { char: "バ", romaji: "ba" }, { char: "ビ", romaji: "bi" }, { char: "ブ", romaji: "bu" }, { char: "ベ", romaji: "be" }, { char: "ボ", romaji: "bo" },
+      // Handakuten
+      { char: "パ", romaji: "pa" }, { char: "ピ", romaji: "pi" }, { char: "プ", romaji: "pu" }, { char: "ペ", romaji: "pe" }, { char: "ポ", romaji: "po" }
+    ];
+
+    // State
+    let currentScript = "hiragana";
+    let currentMode = "flash";
+    let currentList = [...hiragana];
+    let currentIndex = 0;
+    let scoreCorrect = 0;
+    let scoreTotal = 0;
+    let quizAnswered = false;
+
+    // DOM elements
+    const flashcard = document.getElementById("flashcard");
+    const kanaDisplay = document.getElementById("kanaDisplay");
+    const romajiDisplay = document.getElementById("romajiDisplay");
+    const frontLabel = document.getElementById("frontLabel");
+    const cardCounter = document.getElementById("cardCounter");
+    const progressBar = document.getElementById("progressBar");
+    const flashArea = document.getElementById("flashArea");
+    const quizArea = document.getElementById("quizArea");
+    const quizChar = document.getElementById("quizChar");
+    const quizInput = document.getElementById("quizInput");
+    const feedback = document.getElementById("feedback");
+    const scoreCorrectEl = document.getElementById("scoreCorrect");
+    const scoreTotalEl = document.getElementById("scoreTotal");
+    const nextQuizBtn = document.getElementById("nextQuizBtn");
+    const checkBtn = document.getElementById("checkBtn");
+
+    // Initialize
+    function updateList() {
+      if (currentScript === "hiragana") {
+        currentList = [...hiragana];
+      } else if (currentScript === "katakana") {
+        currentList = [...katakana];
+      } else {
+        // Both: interleave or combine
+        currentList = [];
+        for (let i = 0; i < hiragana.length; i++) {
+          currentList.push({ ...hiragana[i], type: "hiragana" });
+          currentList.push({ ...katakana[i], type: "katakana" });
+        }
+      }
+      currentIndex = 0;
+      updateDisplay();
+    }
+
+    function updateDisplay() {
+      if (currentList.length === 0) return;
+      const item = currentList[currentIndex];
+      const label = item.type || currentScript;
+
+      if (currentMode === "flash") {
+        kanaDisplay.textContent = item.char;
+        romajiDisplay.textContent = item.romaji;
+        frontLabel.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+        flashcard.classList.remove("flipped");
+        cardCounter.textContent = `${currentIndex + 1} / ${currentList.length}`;
+        progressBar.style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
+      } else {
+        quizChar.textContent = item.char;
+        quizInput.value = "";
+        quizInput.classList.remove("correct", "wrong");
+        feedback.textContent = "";
+        feedback.className = "feedback";
+        quizAnswered = false;
+        nextQuizBtn.style.display = "none";
+        checkBtn.style.display = "inline-block";
+        quizInput.focus();
+        progressBar.style.width = `${((currentIndex + 1) / currentList.length) * 100}%`;
+      }
+    }
+
+    function nextCard() {
+      currentIndex = (currentIndex + 1) % currentList.length;
+      updateDisplay();
+    }
+
+    function prevCard() {
+      currentIndex = (currentIndex - 1 + currentList.length) % currentList.length;
+      updateDisplay();
+    }
+
+    function randomCard() {
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * currentList.length);
+      } while (newIndex === currentIndex && currentList.length > 1);
+      currentIndex = newIndex;
+      updateDisplay();
+    }
+
+    function checkAnswer() {
+      if (quizAnswered) return;
+      const item = currentList[currentIndex];
+      const userAns = quizInput.value.trim().toLowerCase();
+      const correct = item.romaji.toLowerCase();
+
+      scoreTotal++;
+      scoreTotalEl.textContent = scoreTotal;
+
+      if (userAns === correct) {
+        scoreCorrect++;
+        scoreCorrectEl.textContent = scoreCorrect;
+        quizInput.classList.add("correct");
+        feedback.textContent = "Correct! ✓";
+        feedback.className = "feedback correct";
+      } else {
+        quizInput.classList.add("wrong");
+        feedback.textContent = `Wrong. Answer: ${item.romaji}`;
+        feedback.className = "feedback wrong";
+      }
+
+      quizAnswered = true;
+      checkBtn.style.display = "none";
+      nextQuizBtn.style.display = "inline-block";
+    }
+
+    // Event listeners
+    document.getElementById("scriptToggle").addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON") {
+        document.querySelectorAll("#scriptToggle button").forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentScript = e.target.dataset.script;
+        updateList();
+      }
+    });
+
+    document.getElementById("modeToggle").addEventListener("click", (e) => {
+      if (e.target.tagName === "BUTTON") {
+        document.querySelectorAll("#modeToggle button").forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        currentMode = e.target.dataset.mode;
+        if (currentMode === "flash") {
+          flashArea.classList.remove("hidden");
+          quizArea.classList.remove("active");
+        } else {
+          flashArea.classList.add("hidden");
+          quizArea.classList.add("active");
+        }
+        updateDisplay();
+      }
+    });
+
+    flashcard.addEventListener("click", () => {
+      flashcard.classList.toggle("flipped");
+    });
+
+    document.getElementById("nextBtn").addEventListener("click", nextCard);
+    document.getElementById("prevBtn").addEventListener("click", prevCard);
+    document.getElementById("randomBtn").addEventListener("click", randomCard);
+
+    checkBtn.addEventListener("click", checkAnswer);
+    nextQuizBtn.addEventListener("click", () => {
+      nextCard();
+    });
+    document.getElementById("skipBtn").addEventListener("click", () => {
+      nextCard();
+    });
+
+    quizInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        if (!quizAnswered) {
+          checkAnswer();
+        } else {
+          nextCard();
+        }
+      }
+    });
+
+    // Init
+    updateList();
+  </script>
+</body>
+</html>
