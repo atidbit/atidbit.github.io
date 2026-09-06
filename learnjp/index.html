@@ -1,1 +1,198 @@
-d
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Japanese Practice Hub</title>
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --card: #ffffff;
+      --text: #1e293b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --kana: #ec4899;
+      --roulette: #14b8a6;
+      --matching: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      max-width: 640px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      width: 100%;
+      max-width: 960px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -5px rgb(0 0 0 / 0.12);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+    }
+
+    .card.kana::before { background: var(--kana); }
+    .card.roulette::before { background: var(--roulette); }
+    .card.matching::before { background: var(--matching); }
+
+    .card-icon {
+      font-size: 2.4rem;
+      margin-bottom: 12px;
+    }
+
+    .card h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      flex-grow: 1;
+      margin-bottom: 16px;
+    }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: white;
+    }
+
+    .card.kana .tag { background: var(--kana); }
+    .card.roulette .tag { background: var(--roulette); }
+    .card.matching .tag { background: var(--matching); }
+
+    footer {
+      margin-top: auto;
+      padding-top: 24px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Japanese Practice Hub</h1>
+    <p class="subtitle">Choose an exercise to practice Japanese</p>
+  </header>
+
+  <div class="cards">
+    <!-- Kana Practice -->
+    <a href="https://atidbit.github.io/kana/" class="card kana" target="_blank" rel="noopener">
+      <div class="card-icon">あ ア</div>
+      <h2>Kana Practice</h2>
+      <p>
+        Flashcards and quiz for Hiragana & Katakana.
+        Includes basic, dakuten, and handakuten characters.
+      </p>
+      <span class="tag">Flashcards + Quiz</span>
+    </a>
+
+    <!-- Sentence Roulette -->
+    <a href="sentence-roulette.html" class="card roulette">
+      <div class="card-icon">🎰</div>
+      <h2>Sentence Roulette</h2>
+      <p>
+        Spin the columns to create random Japanese sentences.
+        Practice time, people, verbs, places, and transport.
+      </p>
+      <span class="tag">Sentence Building</span>
+    </a>
+
+    <!-- Matching Game -->
+    <a href="japanese-matching-game.html" class="card matching">
+      <div class="card-icon">🔗</div>
+      <h2>Matching Game</h2>
+      <p>
+        Match Japanese words to their English meanings.
+        Includes Romaji and optional Kanji toggle.
+      </p>
+      <span class="tag">Vocabulary Matching</span>
+    </a>
+  </div>
+
+  <footer>
+    Offline-ready Japanese learning tools<br>
+    Inspired by classroom activities &amp; Duolingo-style practice
+  </footer>
+</body>
+</html>
