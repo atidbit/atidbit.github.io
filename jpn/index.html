@@ -1,1 +1,585 @@
-s
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Japanese Sentence Roulette</title>
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --card: #ffffff;
+      --text: #1e293b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --success: #22c55e;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --when: #ef4444;
+      --who: #22c55e;
+      --verb: #14b8a6;
+      --where: #3b82f6;
+      --transport: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .pattern {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      max-width: 640px;
+      width: 100%;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .pattern strong {
+      color: #047857;
+    }
+
+    /* Roulette columns */
+    .roulette-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .column {
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      width: 160px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column-header {
+      padding: 10px 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-align: center;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .column-header.when { background: var(--when); }
+    .column-header.who { background: var(--who); }
+    .column-header.verb { background: var(--verb); }
+    .column-header.where { background: var(--where); }
+    .column-header.transport { background: var(--transport); }
+
+    .column-body {
+      height: 180px;
+      overflow: hidden;
+      position: relative;
+      background: #f8fafc;
+    }
+
+    .options-list {
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .option {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0 8px;
+      border-bottom: 1px solid var(--border);
+      background: white;
+    }
+
+    .option.selected {
+      background: #eff6ff;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .spin-btn {
+      padding: 8px;
+      border: none;
+      background: #f1f5f9;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .spin-btn:hover {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    /* Result card */
+    .result-card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 20px;
+      width: 100%;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+
+    .result-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .selected-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .chip.when { background: var(--when); }
+    .chip.who { background: var(--who); }
+    .chip.verb { background: var(--verb); }
+    .chip.where { background: var(--where); }
+    .chip.transport { background: var(--transport); }
+
+    .sentence-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 8px;
+    }
+
+    .jp {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+
+    .romaji {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+      font-style: italic;
+    }
+
+    .en {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      padding: 12px 22px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 24px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .column {
+        width: 140px;
+      }
+      .column-body {
+        height: 150px;
+      }
+      .option {
+        height: 50px;
+        font-size: 0.78rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Japanese Sentence Roulette</h1>
+  <p class="subtitle">Spin the columns → make a sentence!</p>
+
+  <div class="pattern">
+    <strong>Pattern:</strong> PERSON <em>wa</em> TIME (<em>ni</em>) CO-PARTICIPANT <em>to</em> TRANSPORT <em>de</em> PLACE <em>ni</em> VERB
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-primary" id="spinAllBtn">🎰 Spin All</button>
+    <button class="btn btn-secondary" id="generateBtn">Generate Sentence</button>
+  </div>
+
+  <div class="roulette-container" id="roulette"></div>
+
+  <div class="result-card" id="resultCard">
+    <div class="result-title">Selected Combination</div>
+    <div class="selected-items" id="chips"></div>
+    <div class="sentence-box" id="sentenceBox">
+      <div class="jp" id="jpSentence">Spin the roulette to create a sentence!</div>
+      <div class="romaji" id="romajiSentence"></div>
+      <div class="en" id="enSentence"></div>
+    </div>
+  </div>
+
+  <footer>
+    Based on classroom Sentence Roulette activity • Offline ready
+  </footer>
+
+  <script>
+    // ========== DATA ==========
+    const data = {
+      when: [
+        { en: "at 3pm (future)", jp: "3時に", romaji: "san-ji ni", tense: "future" },
+        { en: "at 9am (past)", jp: "9時に", romaji: "ku-ji ni", tense: "past" },
+        { en: "Sunday (past)", jp: "日曜日に", romaji: "nichiyōbi ni", tense: "past" },
+        { en: "Sunday (future)", jp: "日曜日に", romaji: "nichiyōbi ni", tense: "future" },
+        { en: "Monday (future)", jp: "月曜日に", romaji: "getsuyōbi ni", tense: "future" },
+        { en: "Tuesday (past)", jp: "火曜日に", romaji: "kayōbi ni", tense: "past" },
+        { en: "Wednesday at 1pm (future)", jp: "水曜日の1時に", romaji: "suiyōbi no ichi-ji ni", tense: "future" },
+        { en: "tomorrow", jp: "明日", romaji: "ashita", tense: "future" },
+        { en: "last month", jp: "先月", romaji: "sengetsu", tense: "past" },
+        { en: "next month", jp: "来月", romaji: "raigetsu", tense: "future" },
+        { en: "last year", jp: "去年", romaji: "kyonen", tense: "past" },
+        { en: "this year (past)", jp: "今年", romaji: "kotoshi", tense: "past" },
+        { en: "this year (future)", jp: "今年", romaji: "kotoshi", tense: "future" }
+      ],
+      who: [
+        { en: "I / me", jp: "私", romaji: "watashi", hasWith: false },
+        { en: "(my) Japanese teacher", jp: "私の日本語の先生", romaji: "watashi no nihongo no sensei", hasWith: false },
+        { en: "(my) friend", jp: "私の友達", romaji: "watashi no tomodachi", hasWith: false },
+        { en: "me, with my friend", jp: "私", romaji: "watashi", withJp: "友達と", withRomaji: "tomodachi to", hasWith: true },
+        { en: "me, with (my) Japanese teacher", jp: "私", romaji: "watashi", withJp: "日本語の先生と", withRomaji: "nihongo no sensei to", hasWith: true },
+        { en: "Ms. Takahashi", jp: "高橋さん", romaji: "Takahashi-san", hasWith: false },
+        { en: "Mr. Smith", jp: "スミスさん", romaji: "Sumisu-san", hasWith: false },
+        { en: "Suzuki-san, with Takahashi-san and Katou-san", jp: "鈴木さん", romaji: "Suzuki-san", withJp: "高橋さんと加藤さんと", withRomaji: "Takahashi-san to Katō-san to", hasWith: true }
+      ],
+      verb: [
+        { en: "come", base: "来る", future: "来ます", past: "来ました", negFuture: "来ません", negPast: "来ませんでした", romajiFuture: "kimasu", romajiPast: "kimashita", romajiNegFuture: "kimasen", romajiNegPast: "kimasen deshita" },
+        { en: "go", base: "行く", future: "行きます", past: "行きました", negFuture: "行きません", negPast: "行きませんでした", romajiFuture: "ikimasu", romajiPast: "ikimashita", romajiNegFuture: "ikimasen", romajiNegPast: "ikimasen deshita" },
+        { en: "return", base: "帰る", future: "帰ります", past: "帰りました", negFuture: "帰りません", negPast: "帰りませんでした", romajiFuture: "kaerimasu", romajiPast: "kaerimashita", romajiNegFuture: "kaerimasen", romajiNegPast: "kaerimasen deshita" },
+        { en: "not come", base: "来る", future: "来ません", past: "来ませんでした", negFuture: "来ません", negPast: "来ませんでした", romajiFuture: "kimasen", romajiPast: "kimasen deshita", romajiNegFuture: "kimasen", romajiNegPast: "kimasen deshita", isNeg: true },
+        { en: "not go", base: "行く", future: "行きません", past: "行きませんでした", negFuture: "行きません", negPast: "行きませんでした", romajiFuture: "ikimasen", romajiPast: "ikimasen deshita", romajiNegFuture: "ikimasen", romajiNegPast: "ikimasen deshita", isNeg: true },
+        { en: "not return", base: "帰る", future: "帰りません", past: "帰りませんでした", negFuture: "帰りません", negPast: "帰りませんでした", romajiFuture: "kaerimasen", romajiPast: "kaerimasen deshita", romajiNegFuture: "kaerimasen", romajiNegPast: "kaerimasen deshita", isNeg: true }
+      ],
+      where: [
+        { en: "California", jp: "カリフォルニア", romaji: "Kariforunia" },
+        { en: "New York", jp: "ニューヨーク", romaji: "Nyū Yōku" },
+        { en: "Osaka", jp: "大阪", romaji: "Ōsaka" },
+        { en: "Honolulu", jp: "ホノルル", romaji: "Honōruru" },
+        { en: "Tokyo", jp: "東京", romaji: "Tōkyō" },
+        { en: "station (train)", jp: "駅", romaji: "eki" },
+        { en: "bank", jp: "銀行", romaji: "ginkō" },
+        { en: "my friend's house", jp: "友達の家", romaji: "tomodachi no ie" }
+      ],
+      transport: [
+        { en: "by taxi", jp: "タクシーで", romaji: "takushī de" },
+        { en: "by subway", jp: "地下鉄で", romaji: "chikatetsu de" },
+        { en: "by bus", jp: "バスで", romaji: "basu de" },
+        { en: "by train", jp: "電車で", romaji: "densha de" },
+        { en: "by bike", jp: "自転車で", romaji: "jitensha de" },
+        { en: "on foot", jp: "歩いて", romaji: "aruite" }
+      ]
+    };
+
+    // Current selected indices
+    const selected = {
+      when: 0,
+      who: 0,
+      verb: 0,
+      where: 0,
+      transport: 0
+    };
+
+    // ========== RENDER COLUMNS ==========
+    function createColumn(key, title, colorClass) {
+      const col = document.createElement("div");
+      col.className = "column";
+      col.dataset.key = key;
+
+      const header = document.createElement("div");
+      header.className = `column-header ${colorClass}`;
+      header.textContent = title;
+
+      const body = document.createElement("div");
+      body.className = "column-body";
+
+      const list = document.createElement("div");
+      list.className = "options-list";
+      list.id = `list-${key}`;
+
+      data[key].forEach((item, i) => {
+        const opt = document.createElement("div");
+        opt.className = "option" + (i === 0 ? " selected" : "");
+        opt.textContent = item.en;
+        opt.dataset.index = i;
+        list.appendChild(opt);
+      });
+
+      body.appendChild(list);
+
+      const spinBtn = document.createElement("button");
+      spinBtn.className = "spin-btn";
+      spinBtn.textContent = "↻ Spin";
+      spinBtn.onclick = () => spinColumn(key);
+
+      col.appendChild(header);
+      col.appendChild(body);
+      col.appendChild(spinBtn);
+      return col;
+    }
+
+    function initRoulette() {
+      const container = document.getElementById("roulette");
+      container.innerHTML = "";
+      container.appendChild(createColumn("when", "When (tense)", "when"));
+      container.appendChild(createColumn("who", "Who", "who"));
+      container.appendChild(createColumn("verb", "Motion verb", "verb"));
+      container.appendChild(createColumn("where", "Where", "where"));
+      container.appendChild(createColumn("transport", "Means of transport", "transport"));
+    }
+
+    // ========== SPIN LOGIC ==========
+    function spinColumn(key) {
+      const list = document.getElementById(`list-${key}`);
+      const items = data[key];
+      const newIndex = Math.floor(Math.random() * items.length);
+      selected[key] = newIndex;
+
+      // Visual scroll effect
+      const optionHeight = list.children[0].offsetHeight;
+      const offset = newIndex * optionHeight;
+      list.style.transform = `translateY(-${offset}px)`;
+
+      // Update selected class
+      Array.from(list.children).forEach((el, i) => {
+        el.classList.toggle("selected", i === newIndex);
+      });
+
+      updateChips();
+    }
+
+    function spinAll() {
+      ["when", "who", "verb", "where", "transport"].forEach((key, i) => {
+        setTimeout(() => spinColumn(key), i * 120);
+      });
+      setTimeout(generateSentence, 800);
+    }
+
+    // ========== DISPLAY ==========
+    function updateChips() {
+      const chips = document.getElementById("chips");
+      chips.innerHTML = `
+        <span class="chip when">${data.when[selected.when].en}</span>
+        <span class="chip who">${data.who[selected.who].en}</span>
+        <span class="chip verb">${data.verb[selected.verb].en}</span>
+        <span class="chip where">${data.where[selected.where].en}</span>
+        <span class="chip transport">${data.transport[selected.transport].en}</span>
+      `;
+    }
+
+    function generateSentence() {
+      const w = data.when[selected.when];
+      const who = data.who[selected.who];
+      const v = data.verb[selected.verb];
+      const place = data.where[selected.where];
+      const t = data.transport[selected.transport];
+
+      // Choose correct verb form based on tense
+      let verbJp, verbRomaji;
+      if (w.tense === "past") {
+        verbJp = v.isNeg ? v.negPast : v.past;
+        verbRomaji = v.isNeg ? v.romajiNegPast : v.romajiPast;
+      } else {
+        verbJp = v.isNeg ? v.negFuture : v.future;
+        verbRomaji = v.isNeg ? v.romajiNegFuture : v.romajiFuture;
+      }
+
+      // Build Japanese
+      let jp = `${who.jp}は`;
+      if (w.jp) jp += `${w.jp}`;
+      if (who.hasWith) jp += `${who.withJp}`;
+      jp += `${t.jp}${place.jp}に${verbJp}。`;
+
+      // Build Romaji
+      let romaji = `${who.romaji} wa `;
+      if (w.romaji) romaji += `${w.romaji} `;
+      if (who.hasWith) romaji += `${who.withRomaji} `;
+      romaji += `${t.romaji} ${place.romaji} ni ${verbRomaji}.`;
+
+      // Build English
+      let en = "";
+      if (who.hasWith) {
+        en = `${who.en} ${v.en}s to ${place.en} ${t.en} ${w.en.replace(/\(.*?\)/, "").trim()}.`;
+        // Better natural English
+        en = buildNaturalEnglish(who, w, v, place, t);
+      } else {
+        en = buildNaturalEnglish(who, w, v, place, t);
+      }
+
+      document.getElementById("jpSentence").textContent = jp;
+      document.getElementById("romajiSentence").textContent = romaji;
+      document.getElementById("enSentence").textContent = en;
+      updateChips();
+    }
+
+    function buildNaturalEnglish(who, w, v, place, t) {
+      const time = w.en.replace(/\s*\(.*?\)\s*/g, "").trim();
+      const isPast = w.tense === "past";
+      const isNeg = v.isNeg || v.en.startsWith("not ");
+
+      let subject = who.en;
+      if (subject === "I / me") subject = "I";
+      if (subject.startsWith("(my)")) subject = subject.replace("(my)", "My");
+
+      let verbEn = v.en;
+      if (isNeg) {
+        verbEn = verbEn.replace("not ", "");
+        if (isPast) {
+          verbEn = `did not ${verbEn}`;
+        } else {
+          verbEn = `will not ${verbEn}` || `am not ${verbEn}ing`;
+          if (subject === "I") verbEn = `am not going to ${verbEn.replace("will not ", "")}`;
+          // simplify
+          verbEn = isPast ? `did not ${v.en.replace("not ", "")}` : `will not ${v.en.replace("not ", "")}`;
+        }
+      } else {
+        if (isPast) {
+          // simple past
+          if (verbEn === "come") verbEn = "came";
+          else if (verbEn === "go") verbEn = "went";
+          else if (verbEn === "return") verbEn = "returned";
+        } else {
+          if (subject === "I") verbEn = `will ${verbEn}`;
+          else verbEn = `will ${verbEn}`;
+        }
+      }
+
+      // Special handling for "I"
+      if (subject === "I" && !isNeg && !isPast) {
+        verbEn = `am ${v.en === "come" ? "coming" : v.en === "go" ? "going" : "returning"}`;
+      }
+
+      let withPart = "";
+      if (who.hasWith) {
+        withPart = ` with ${who.en.split("with ")[1] || "someone"}`;
+      }
+
+      // Cleaner version
+      let final = "";
+      if (isPast) {
+        if (isNeg) {
+          final = `${subject} did not ${v.en.replace("not ", "")} to ${place.en} ${t.en}${withPart} ${time}.`;
+        } else {
+          const pastVerb = { come: "came", go: "went", return: "returned" }[v.en] || v.en + "ed";
+          final = `${subject} ${pastVerb} to ${place.en} ${t.en}${withPart} ${time}.`;
+        }
+      } else {
+        if (isNeg) {
+          final = `${subject} will not ${v.en.replace("not ", "")} to ${place.en} ${t.en}${withPart} ${time}.`;
+        } else {
+          final = `${subject} will ${v.en} to ${place.en} ${t.en}${withPart} ${time}.`;
+        }
+      }
+
+      // Capitalize first letter
+      return final.charAt(0).toUpperCase() + final.slice(1);
+    }
+
+    // ========== INIT ==========
+    document.getElementById("spinAllBtn").addEventListener("click", spinAll);
+    document.getElementById("generateBtn").addEventListener("click", generateSentence);
+
+    initRoulette();
+    updateChips();
+    // Initial sentence
+    setTimeout(generateSentence, 100);
+  </script>
+</body>
+</html>
