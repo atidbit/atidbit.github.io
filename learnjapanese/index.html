@@ -1,1 +1,630 @@
-d
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Japanese Matching Game</title>
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --card: #ffffff;
+      --text: #1e293b;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --success: #22c55e;
+      --error: #ef4444;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --romaji: #8b5cf6;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+      line-height: 1.5;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .stat {
+      background: var(--card);
+      padding: 8px 16px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .stat span {
+      color: var(--accent);
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 11px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+    }
+
+    .category-select, .toggle-label {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: var(--card);
+      cursor: pointer;
+    }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+
+    .toggle-label input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    /* Game board - 3 columns */
+    .board {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      max-width: 900px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .column-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .column-title.romaji-title {
+      color: var(--romaji);
+    }
+
+    .card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: var(--shadow);
+      user-select: none;
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card.romaji-card {
+      background: #f5f3ff;
+      border-color: #ddd6fe;
+      color: #5b21b6;
+      cursor: default;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .card:hover:not(.matched):not(.selected):not(.romaji-card) {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .card.selected {
+      border-color: var(--accent);
+      background: #eff6ff;
+      color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+
+    .card.matched {
+      background: #f0fdf4;
+      border-color: var(--success);
+      color: #166534;
+      cursor: default;
+      opacity: 0.85;
+    }
+
+    .card.romaji-card.matched {
+      background: #f0fdf4;
+      border-color: var(--success);
+      color: #166534;
+      opacity: 0.85;
+    }
+
+    .card.wrong {
+      background: #fef2f2;
+      border-color: var(--error);
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .feedback {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      min-height: 28px;
+      text-align: center;
+    }
+
+    .feedback.correct {
+      color: var(--success);
+    }
+
+    .feedback.wrong {
+      color: var(--error);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      max-width: 900px;
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    .win-message {
+      display: none;
+      background: #ecfdf5;
+      border: 2px solid #a7f3d0;
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      max-width: 400px;
+      margin-top: 20px;
+    }
+
+    .win-message.show {
+      display: block;
+    }
+
+    .win-message h2 {
+      color: #047857;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      margin-top: auto;
+      padding-top: 28px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .board {
+        flex-direction: column;
+      }
+      .column {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Japanese Matching Game</h1>
+  <p class="subtitle">Match Japanese → English (Romaji is shown to help you)</p>
+
+  <div class="stats">
+    <div class="stat">Score: <span id="score">0</span></div>
+    <div class="stat">Matched: <span id="matched">0</span> / <span id="total">0</span></div>
+  </div>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="controls">
+    <select class="category-select" id="categorySelect">
+      <option value="mixed">Mixed (All)</option>
+      <option value="time">Time & Days</option>
+      <option value="transport">Transport</option>
+      <option value="verbs">Motion Verbs</option>
+      <option value="places">Places</option>
+      <option value="people">People</option>
+      <option value="basic">Basic Phrases</option>
+    </select>
+
+    <label class="toggle-label">
+      <input type="checkbox" id="kanjiToggle">
+      Include Kanji
+    </label>
+
+    <button class="btn btn-primary" id="newGameBtn">New Game</button>
+    <button class="btn btn-secondary" id="shuffleBtn">Shuffle</button>
+  </div>
+
+  <div class="board" id="board">
+    <div class="column">
+      <div class="column-title">Japanese</div>
+      <div id="jpColumn"></div>
+    </div>
+    <div class="column">
+      <div class="column-title romaji-title">Romaji</div>
+      <div id="romajiColumn"></div>
+    </div>
+    <div class="column">
+      <div class="column-title">English</div>
+      <div id="enColumn"></div>
+    </div>
+  </div>
+
+  <div class="feedback" id="feedback"></div>
+
+  <div class="win-message" id="winMessage">
+    <h2>🎉 Perfect!</h2>
+    <p>You matched all pairs correctly!</p>
+    <button class="btn btn-primary" style="margin-top:12px" onclick="startNewGame()">Play Again</button>
+  </div>
+
+  <footer>
+    Three columns: Japanese · Romaji · English • Default = Hiragana/Katakana only
+  </footer>
+
+  <script>
+    // ========== VOCABULARY ==========
+    // Each item has: kana, kanji, romaji, en
+    const vocabulary = {
+      time: [
+        { kana: "あした", kanji: "明日", romaji: "ashita", en: "tomorrow" },
+        { kana: "きのう", kanji: "昨日", romaji: "kinō", en: "yesterday" },
+        { kana: "きょう", kanji: "今日", romaji: "kyō", en: "today" },
+        { kana: "らいげつ", kanji: "来月", romaji: "raigetsu", en: "next month" },
+        { kana: "せんげつ", kanji: "先月", romaji: "sengetsu", en: "last month" },
+        { kana: "きょねん", kanji: "去年", romaji: "kyonen", en: "last year" },
+        { kana: "げつようび", kanji: "月曜日", romaji: "getsuyōbi", en: "Monday" },
+        { kana: "にちようび", kanji: "日曜日", romaji: "nichiyōbi", en: "Sunday" },
+        { kana: "さんじ", kanji: "3時", romaji: "san-ji", en: "3 o'clock" },
+        { kana: "あさ", kanji: "朝", romaji: "asa", en: "morning" }
+      ],
+      transport: [
+        { kana: "タクシーで", kanji: "タクシーで", romaji: "takushī de", en: "by taxi" },
+        { kana: "でんしゃで", kanji: "電車で", romaji: "densha de", en: "by train" },
+        { kana: "バスで", kanji: "バスで", romaji: "basu de", en: "by bus" },
+        { kana: "ちかてつで", kanji: "地下鉄で", romaji: "chikatetsu de", en: "by subway" },
+        { kana: "じてんしゃで", kanji: "自転車で", romaji: "jitensha de", en: "by bike" },
+        { kana: "あるいて", kanji: "歩いて", romaji: "aruite", en: "on foot" },
+        { kana: "くるまで", kanji: "車で", romaji: "kuruma de", en: "by car" },
+        { kana: "ひこうきで", kanji: "飛行機で", romaji: "hikōki de", en: "by plane" }
+      ],
+      verbs: [
+        { kana: "いきます", kanji: "行きます", romaji: "ikimasu", en: "will go" },
+        { kana: "きます", kanji: "来ます", romaji: "kimasu", en: "will come" },
+        { kana: "かえります", kanji: "帰ります", romaji: "kaerimasu", en: "will return" },
+        { kana: "いきました", kanji: "行きました", romaji: "ikimashita", en: "went" },
+        { kana: "きました", kanji: "来ました", romaji: "kimashita", en: "came" },
+        { kana: "かえりました", kanji: "帰りました", romaji: "kaerimashita", en: "returned" },
+        { kana: "いきません", kanji: "行きません", romaji: "ikimasen", en: "will not go" },
+        { kana: "きません", kanji: "来ません", romaji: "kimasen", en: "will not come" }
+      ],
+      places: [
+        { kana: "とうきょう", kanji: "東京", romaji: "Tōkyō", en: "Tokyo" },
+        { kana: "おおさか", kanji: "大阪", romaji: "Ōsaka", en: "Osaka" },
+        { kana: "えき", kanji: "駅", romaji: "eki", en: "station" },
+        { kana: "ぎんこう", kanji: "銀行", romaji: "ginkō", en: "bank" },
+        { kana: "がっこう", kanji: "学校", romaji: "gakkō", en: "school" },
+        { kana: "いえ", kanji: "家", romaji: "ie", en: "house / home" },
+        { kana: "くうこう", kanji: "空港", romaji: "kūkō", en: "airport" },
+        { kana: "びょういん", kanji: "病院", romaji: "byōin", en: "hospital" }
+      ],
+      people: [
+        { kana: "わたし", kanji: "私", romaji: "watashi", en: "I / me" },
+        { kana: "ともだち", kanji: "友達", romaji: "tomodachi", en: "friend" },
+        { kana: "せんせい", kanji: "先生", romaji: "sensei", en: "teacher" },
+        { kana: "にほんごのせんせい", kanji: "日本語の先生", romaji: "nihongo no sensei", en: "Japanese teacher" },
+        { kana: "たかはしさん", kanji: "高橋さん", romaji: "Takahashi-san", en: "Ms. Takahashi" },
+        { kana: "すずきさん", kanji: "鈴木さん", romaji: "Suzuki-san", en: "Mr. Suzuki" }
+      ],
+      basic: [
+        { kana: "こんにちは", kanji: "こんにちは", romaji: "konnichiwa", en: "Hello" },
+        { kana: "ありがとう", kanji: "ありがとう", romaji: "arigatō", en: "Thank you" },
+        { kana: "すみません", kanji: "すみません", romaji: "sumimasen", en: "Excuse me / Sorry" },
+        { kana: "はい", kanji: "はい", romaji: "hai", en: "Yes" },
+        { kana: "いいえ", kanji: "いいえ", romaji: "iie", en: "No" },
+        { kana: "おねがいします", kanji: "お願いします", romaji: "onegaishimasu", en: "Please" },
+        { kana: "わかりました", kanji: "わかりました", romaji: "wakarimashita", en: "I understand" },
+        { kana: "だいじょうぶです", kanji: "大丈夫です", romaji: "daijōbu desu", en: "It's okay" }
+      ]
+    };
+
+    // Build mixed list
+    vocabulary.mixed = [
+      ...vocabulary.time.slice(0, 3),
+      ...vocabulary.transport.slice(0, 3),
+      ...vocabulary.verbs.slice(0, 3),
+      ...vocabulary.places.slice(0, 3),
+      ...vocabulary.people.slice(0, 2),
+      ...vocabulary.basic.slice(0, 2)
+    ];
+
+    // Game state
+    let currentPairs = [];
+    let selectedJp = null;
+    let selectedEn = null;
+    let matchedCount = 0;
+    let score = 0;
+    let isChecking = false;
+    let includeKanji = false; // DEFAULT: no kanji
+
+    // ========== HELPERS ==========
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function getDisplayText(item) {
+      return includeKanji ? item.kanji : item.kana;
+    }
+
+    function getCategoryPairs() {
+      const cat = document.getElementById("categorySelect").value;
+      let list = vocabulary[cat] || vocabulary.mixed;
+      list = shuffle(list).slice(0, Math.min(6, list.length));
+      return list;
+    }
+
+    // ========== RENDER ==========
+    function renderBoard() {
+      const jpCol = document.getElementById("jpColumn");
+      const romajiCol = document.getElementById("romajiColumn");
+      const enCol = document.getElementById("enColumn");
+      jpCol.innerHTML = "";
+      romajiCol.innerHTML = "";
+      enCol.innerHTML = "";
+
+      const jpOrder = shuffle(currentPairs);
+      const enOrder = shuffle(currentPairs);
+
+      jpOrder.forEach(pair => {
+        // Japanese card
+        const jpCard = document.createElement("div");
+        jpCard.className = "card";
+        jpCard.textContent = getDisplayText(pair);
+        jpCard.dataset.id = pair.id;
+        jpCard.dataset.side = "jp";
+        jpCard.onclick = () => selectCard(jpCard);
+        jpCol.appendChild(jpCard);
+
+        // Romaji card (non-clickable helper, follows Japanese order)
+        const romajiCard = document.createElement("div");
+        romajiCard.className = "card romaji-card";
+        romajiCard.textContent = pair.romaji;
+        romajiCard.dataset.id = pair.id;
+        romajiCol.appendChild(romajiCard);
+      });
+
+      enOrder.forEach(pair => {
+        const enCard = document.createElement("div");
+        enCard.className = "card";
+        enCard.textContent = pair.en;
+        enCard.dataset.id = pair.id;
+        enCard.dataset.side = "en";
+        enCard.onclick = () => selectCard(enCard);
+        enCol.appendChild(enCard);
+      });
+
+      document.getElementById("total").textContent = currentPairs.length;
+      document.getElementById("matched").textContent = matchedCount;
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const pct = currentPairs.length === 0 ? 0 : (matchedCount / currentPairs.length) * 100;
+      document.getElementById("progressBar").style.width = pct + "%";
+    }
+
+    // ========== GAME LOGIC ==========
+    function selectCard(card) {
+      if (isChecking || card.classList.contains("matched") || card.classList.contains("romaji-card")) return;
+
+      const side = card.dataset.side;
+
+      if (side === "jp") {
+        if (selectedJp) selectedJp.classList.remove("selected");
+        selectedJp = card;
+      } else {
+        if (selectedEn) selectedEn.classList.remove("selected");
+        selectedEn = card;
+      }
+
+      card.classList.add("selected");
+
+      if (selectedJp && selectedEn) {
+        checkMatch();
+      }
+    }
+
+    function checkMatch() {
+      isChecking = true;
+      const jpId = selectedJp.dataset.id;
+      const enId = selectedEn.dataset.id;
+      const feedback = document.getElementById("feedback");
+
+      if (jpId === enId) {
+        // Correct
+        selectedJp.classList.remove("selected");
+        selectedEn.classList.remove("selected");
+        selectedJp.classList.add("matched");
+        selectedEn.classList.add("matched");
+
+        // Also mark the matching romaji card
+        const romajiCards = document.querySelectorAll("#romajiColumn .card");
+        romajiCards.forEach(c => {
+          if (c.dataset.id === jpId) {
+            c.classList.add("matched");
+          }
+        });
+
+        matchedCount++;
+        score += 10;
+        document.getElementById("score").textContent = score;
+        document.getElementById("matched").textContent = matchedCount;
+        updateProgress();
+
+        feedback.textContent = "✓ Correct!";
+        feedback.className = "feedback correct";
+
+        selectedJp = null;
+        selectedEn = null;
+        isChecking = false;
+
+        if (matchedCount === currentPairs.length) {
+          setTimeout(() => {
+            document.getElementById("winMessage").classList.add("show");
+          }, 400);
+        }
+      } else {
+        // Wrong
+        selectedJp.classList.add("wrong");
+        selectedEn.classList.add("wrong");
+        feedback.textContent = "✗ Try again";
+        feedback.className = "feedback wrong";
+
+        setTimeout(() => {
+          selectedJp.classList.remove("selected", "wrong");
+          selectedEn.classList.remove("selected", "wrong");
+          selectedJp = null;
+          selectedEn = null;
+          isChecking = false;
+          feedback.textContent = "";
+        }, 700);
+      }
+    }
+
+    function startNewGame() {
+      document.getElementById("winMessage").classList.remove("show");
+      document.getElementById("feedback").textContent = "";
+      matchedCount = 0;
+      score = 0;
+      selectedJp = null;
+      selectedEn = null;
+      isChecking = false;
+
+      document.getElementById("score").textContent = "0";
+
+      const pairs = getCategoryPairs();
+      currentPairs = pairs.map((p, i) => ({ ...p, id: String(i) }));
+      renderBoard();
+    }
+
+    // ========== INIT ==========
+    document.getElementById("newGameBtn").addEventListener("click", startNewGame);
+    document.getElementById("shuffleBtn").addEventListener("click", () => {
+      renderBoard();
+    });
+    document.getElementById("categorySelect").addEventListener("change", startNewGame);
+
+    document.getElementById("kanjiToggle").addEventListener("change", (e) => {
+      includeKanji = e.target.checked;
+      renderBoard();
+    });
+
+    startNewGame();
+  </script>
+</body>
+</html>
