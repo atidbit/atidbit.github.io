@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Collaboration on Best Alternatives Learning and Technology: Index of /COBALT/</title>
+  <style>
+    body { font-family: monospace; max-width: 900px; margin: 2em auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background: #f4f4f4; }
+    a { text-decoration: none; color: #0066cc; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>Index of /COBALT/</h1>
+  <hr>
+  <table>
+    <tr><th>Name</th><th>Last modified</th><th>Size</th></tr>
+    <tr><td><a href="../info.txt">Parent Directory</a></td><td>—</td><td>—</td></tr>
+
+    <!-- Add your files/folders here manually -->
+    <tr><td><a href="Brown.Vernon.Defense-Qual-Desc_03.24.2023.pdf">Brown.Vernon.Defense-Qual-Desc_03.24.2023.pdf</a></td><td>2026-01-24</td><td>2.58 MB</td></tr>
+    <tr><td><a href="Brown.Vernon.Proposal%20Defense-Qual-Desc_05.03.22.pdf">Brown.Vernon.Proposal Defense-Qual-Desc_05.03.22.pdf</a></td><td>2026-01-24</td><td>641 KB</td></tr>
+    <tr><td><a href="EdD_Ohana_Culture_vs_The_Big_Castle.m4a">EdD_Ohana_Culture_vs_The_Big_Castle.m4a</a></td><td>2026-02-05</td><td>20.4 MB</td></tr>
+    <!-- ... more rows ... -->
+  </table>
+  <hr>
+  <small>Hosted on Atidbit.io</small>
+</body>
+</html>
