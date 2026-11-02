@@ -5,3 +5,4 @@
 User-agent: *
 Disallow:
 Sitemap: https://atidbit.io/sitemap.xml
+Sitemap: https://atidbit.io/doc-b/sitemap.xml
