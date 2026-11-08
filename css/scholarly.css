@@ -1,0 +1,20 @@
+/*****************************************************************************/
+/*
+/* Scholarly articles
+/*
+/* Loaded after screen.css by the dissertation and journal layouts only
+/* (_layouts/dissdefault.html, dissdefaultgcu.html, dissdefaultijbss.html).
+/*
+/* .site sets text-align: justify, which stretches wrapped headings.
+/* Left-align headings; body paragraphs keep the inherited justification.
+/*
+/*****************************************************************************/
+
+.site h1,
+.site h2,
+.site h3,
+.site h4,
+.site h5,
+.site h6 {
+  text-align: left;
+}
