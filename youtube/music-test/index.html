@@ -566,6 +566,42 @@
 
     #results-sub { margin-top: 4px; font-size: 13px; }
 
+    .results-batch {
+      display: none;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 2px 0 18px;
+    }
+
+    .results-batch.on { display: flex; }
+
+    .batch-btn {
+      height: 36px;
+      padding: 0 16px;
+      border: 1px solid var(--line-strong);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .batch-btn:hover { background: rgba(255, 255, 255, 0.08); }
+    .batch-btn:active { transform: scale(0.97); }
+
+    .batch-btn.primary {
+      background: var(--accent);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(251, 44, 54, 0.28);
+    }
+
+    .batch-btn.primary:hover { background: var(--accent-hover); }
+
     .note {
       display: none;
       margin: 8px 0 20px;
@@ -952,6 +988,7 @@
       #results { padding: 20px 14px calc(36px + var(--safe-b)); }
       body.music.searching #results { padding-bottom: calc(150px + var(--safe-b)); }
       .results-head h2 { font-size: 16px; }
+      .batch-btn { flex: 1; min-width: 0; }
       #music { padding: 16px 14px calc(24px + var(--safe-b)); }
       .now {
         flex-wrap: wrap;
@@ -1042,6 +1079,10 @@
             <p class="hint" id="results-sub"></p>
           </div>
           <button class="clear" id="results-clear" type="button">Clear</button>
+        </div>
+        <div class="results-batch" id="results-batch">
+          <button class="batch-btn primary" id="play-all" type="button">Play all</button>
+          <button class="batch-btn" id="shuffle-all" type="button">Shuffle</button>
         </div>
         <div class="note" id="results-note"></div>
         <div id="results-grid"></div>
@@ -1153,7 +1194,7 @@
       let seeking = false;
       let isPlaying = false;
       const search = { query: "", items: [], nextPageToken: null, loading: false };
-      const queue = { items: [], index: -1, playlistId: null, nextPageToken: null, loading: false };
+      const queue = { items: [], index: -1, playlistId: null, nextPageToken: null, loading: false, source: null, searchQuery: "", searchShuffled: false };
 
       function hasApiKey() {
         const key = (YT_API_KEY || "").trim();
@@ -1573,7 +1614,10 @@
           items: queue.items,
           index: queue.index,
           playlistId: queue.playlistId,
-          nextPageToken: queue.nextPageToken
+          nextPageToken: queue.nextPageToken,
+          source: queue.source,
+          searchQuery: queue.searchQuery,
+          searchShuffled: queue.searchShuffled
         }));
       }
 
@@ -1585,6 +1629,9 @@
           queue.index = Math.min(data.index >= 0 ? data.index : -1, queue.items.length - 1);
           queue.playlistId = data.playlistId || null;
           queue.nextPageToken = data.nextPageToken || null;
+          queue.source = data.source || (data.playlistId ? "playlist" : null);
+          queue.searchQuery = data.searchQuery || "";
+          queue.searchShuffled = !!data.searchShuffled;
         } catch (e) {}
       }
 
@@ -1701,6 +1748,7 @@
         remember(item);
         setHash(item, search.query);
         updateMediaSession(item, autoplay !== false);
+        maybePrefetchSearchPage();
       }
 
       function playNow(video) {
@@ -1780,6 +1828,9 @@
         queue.index = -1;
         queue.playlistId = null;
         queue.nextPageToken = null;
+        queue.source = null;
+        queue.searchQuery = "";
+        queue.searchShuffled = false;
         persistQueue();
         renderNow();
         renderQueue();
@@ -1809,13 +1860,25 @@
           playIndex(queue.index + 1, true);
           return;
         }
+        if (queue.source === "search" && (queue.nextPageToken || queue.loading)) {
+          appendSearchPageToQueue().then(function () {
+            if (queue.index < queue.items.length - 1) playIndex(queue.index + 1, true);
+            else if (fromEnd) stopAtEnd();
+            else playIndex(0, true);
+          });
+          return;
+        }
         if (fromEnd) {
-          isPlaying = false;
-          setToggle(false);
-          try { if (ytPlayer && ytPlayer.seekTo) ytPlayer.seekTo(0, true); if (ytPlayer.pauseVideo) ytPlayer.pauseVideo(); } catch (e) {}
+          stopAtEnd();
           return;
         }
         playIndex(0, true);
+      }
+
+      function stopAtEnd() {
+        isPlaying = false;
+        setToggle(false);
+        try { if (ytPlayer && ytPlayer.seekTo) ytPlayer.seekTo(0, true); if (ytPlayer.pauseVideo) ytPlayer.pauseVideo(); } catch (e) {}
       }
 
       function togglePlay() {
@@ -1979,6 +2042,7 @@
         $loadMore.classList.toggle("on", !!search.nextPageToken);
         $loadMore.disabled = search.loading;
         $loadMore.textContent = search.loading && search.items.length ? "Loading…" : "Load more";
+        document.getElementById("results-batch").classList.toggle("on", mode === "music" && search.items.length > 0);
         updateBack();
       }
 
@@ -2069,6 +2133,9 @@
         clearSearch();
         queue.playlistId = listId;
         queue.nextPageToken = null;
+        queue.source = "playlist";
+        queue.searchQuery = "";
+        queue.searchShuffled = false;
         queue.items = [];
         queue.index = -1;
         try {
@@ -2209,6 +2276,94 @@
         }
       }
 
+      function shuffleList(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const t = a[i];
+          a[i] = a[j];
+          a[j] = t;
+        }
+        return a;
+      }
+
+      function playSearchResults(shuffled) {
+        const items = search.items.map(trackFrom).filter(function (t) { return t.id; });
+        if (!items.length) return;
+        const list = shuffled ? shuffleList(items) : items.slice();
+        queue.items = list;
+        queue.index = -1;
+        queue.playlistId = null;
+        queue.source = "search";
+        queue.searchQuery = search.query;
+        queue.searchShuffled = !!shuffled;
+        queue.nextPageToken = search.nextPageToken || null;
+        persistQueue();
+        playIndex(0, true);
+        if (mode === "music") clearSearch();
+      }
+
+      function maybePrefetchSearchPage() {
+        if (queue.source !== "search") return;
+        if (queue.index < 0) return;
+        if (queue.items.length - queue.index > 2) return;
+        appendSearchPageToQueue();
+      }
+
+      async function appendSearchPageToQueue() {
+        if (queue.source !== "search") return;
+        if (queue.loading || !queue.nextPageToken || !queue.searchQuery) return;
+        if (!hasApiKey()) return;
+        queue.loading = true;
+        const query = queue.searchQuery;
+        const token = queue.nextPageToken;
+        try {
+          const params = {
+            part: "snippet",
+            type: "video",
+            maxResults: "24",
+            safeSearch: "none",
+            q: query,
+            pageToken: token,
+            videoCategoryId: "10"
+          };
+          const data = await apiGet("search", params);
+          const seen = {};
+          queue.items.forEach(function (t) { if (t.id) seen[t.id] = true; });
+          let fresh = (data.items || []).map(function (item) {
+            const id = item.id && item.id.videoId;
+            const sn = item.snippet || {};
+            const thumbs = sn.thumbnails || {};
+            if (!id || seen[id]) return null;
+            seen[id] = true;
+            return {
+              id: id,
+              title: sn.title || id,
+              channel: sn.channelTitle || "",
+              thumb: (thumbs.medium && thumbs.medium.url) ||
+                (thumbs.high && thumbs.high.url) ||
+                ("https://i.ytimg.com/vi/" + id + "/mqdefault.jpg"),
+              duration: ""
+            };
+          }).filter(Boolean);
+          try {
+            const durations = await fetchDurations(fresh.map(function (i) { return i.id; }));
+            fresh.forEach(function (item) {
+              if (durations[item.id]) item.duration = durations[item.id];
+            });
+          } catch (e) {}
+          if (queue.searchShuffled) fresh = shuffleList(fresh);
+          queue.items = queue.items.concat(fresh);
+          queue.nextPageToken = data.nextPageToken || null;
+        } catch (e) {
+          /* Keep playing the remaining tracks; the next attempt can retry. */
+        } finally {
+          queue.loading = false;
+          persistQueue();
+          renderQueue();
+        }
+      }
+
       function flash(msg) {
         $toast.textContent = msg;
         $toast.classList.add("on");
@@ -2320,6 +2475,14 @@
 
       document.getElementById("results-clear").addEventListener("click", function () {
         goHome(true);
+      });
+
+      document.getElementById("play-all").addEventListener("click", function () {
+        playSearchResults(false);
+      });
+
+      document.getElementById("shuffle-all").addEventListener("click", function () {
+        playSearchResults(true);
       });
 
       $loadMore.addEventListener("click", function () {
