@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#09090b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="A quieter way to watch YouTube.">
+  <title>Watch</title>
+  <style>
+    :root {
+      --bg: #09090b;
+      --bg-elevated: #141416;
+      --bar-h: 56px;
+      --bar-bg: rgba(12, 12, 14, 0.82);
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.14);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --faint: #71717a;
+      --accent: #fb2c36;
+      --accent-hover: #ff4d4d;
+      --accent-soft: rgba(251, 44, 54, 0.16);
+      --input-bg: rgba(255, 255, 255, 0.05);
+      --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+      --radius: 12px;
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --font: "Segoe UI", "SF Pro Text", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100dvh;
+      overflow: hidden;
+    }
+
+    button, input { font: inherit; color: inherit; }
+
+    /* —— Top bar —— */
+    #bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: calc(var(--bar-h) + var(--safe-t));
+      padding: var(--safe-t) 14px 0 14px;
+      background: var(--bar-bg);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px) saturate(1.4);
+      -webkit-backdrop-filter: blur(18px) saturate(1.4);
+      transform: translateY(0);
+      transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+                  opacity 0.28s ease,
+                  box-shadow 0.28s ease;
+    }
+
+    body.playing.autohide.bar-hidden #bar {
+      transform: translateY(-100%);
+      pointer-events: none;
+    }
+
+    body.playing.autohide:not(.bar-hidden) #bar {
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
+      user-select: none;
+    }
+
+    .mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      background: linear-gradient(160deg, #ff5a5f 0%, var(--accent) 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 12px rgba(251, 44, 54, 0.35);
+    }
+
+    .mark svg { display: block; }
+
+    .wordmark {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .wordmark span {
+      color: var(--faint);
+      font-weight: 500;
+    }
+
+    .back {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      height: 36px;
+      padding: 0 10px 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .back:hover {
+      color: var(--text);
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .back svg { display: block; }
+
+    body.playing.has-results .back { display: inline-flex; }
+
+    form {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    #u {
+      flex: 1;
+      min-width: 0;
+      height: 36px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--input-bg);
+      font-size: 16px; /* keeps iOS from zooming */
+      outline: none;
+      transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    #u::placeholder { color: var(--faint); }
+
+    #u:hover { border-color: var(--line-strong); }
+
+    #u:focus {
+      border-color: rgba(251, 44, 54, 0.7);
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    #u.bad {
+      border-color: var(--accent);
+      animation: shake 0.36s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .play {
+      height: 36px;
+      padding: 0 14px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      flex-shrink: 0;
+      min-width: 68px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .play:hover { background: var(--accent-hover); }
+    .play:active { transform: scale(0.97); }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .icon-btn:hover {
+      color: var(--text);
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .icon-btn[aria-pressed="true"] {
+      color: #fff;
+      border-color: rgba(251, 44, 54, 0.45);
+      background: var(--accent-soft);
+    }
+
+    /* hover / tap strip to reveal a hidden bar */
+    #edge {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 22px;
+      z-index: 25;
+      display: none;
+    }
+
+    body.playing.autohide.bar-hidden #edge { display: block; }
+
+    /* —— Stage —— */
+    #stage {
+      position: fixed;
+      top: calc(var(--bar-h) + var(--safe-t));
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      transition: top 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    body.playing.autohide.bar-hidden #stage { top: 0; }
+
+    #player {
+      display: none;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+
+    body.playing #player { display: block; }
+    body.playing #empty,
+    body.playing #results { display: none; }
+    body.searching:not(.playing) #empty { display: none; }
+    body.searching:not(.playing) #results { display: block; }
+    body.searching:not(.playing) #stage { background: var(--bg); }
+
+    /* —— Empty state —— */
+    #empty {
+      height: 100%;
+      overflow: auto;
+      padding: 48px 24px calc(48px + var(--safe-b));
+      background:
+        radial-gradient(900px 420px at 50% -10%, rgba(251, 44, 54, 0.10), transparent 60%),
+        radial-gradient(700px 500px at 80% 120%, rgba(255, 255, 255, 0.03), transparent 50%),
+        var(--bg);
+    }
+
+    .hero {
+      max-width: 640px;
+      margin: 0 auto 40px;
+      text-align: center;
+    }
+
+    .hero-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 20px;
+      border-radius: 16px;
+      background: linear-gradient(160deg, #ff5a5f 0%, var(--accent) 100%);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 8px 28px rgba(251, 44, 54, 0.32), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 620;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .hint {
+      margin-top: 8px;
+      color: var(--faint);
+      font-size: 12px;
+    }
+
+    .hint kbd {
+      display: inline-block;
+      min-width: 18px;
+      padding: 1px 5px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.04);
+      font: 11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: var(--muted);
+    }
+
+    #recents-wrap { display: none; max-width: 880px; margin: 0 auto; }
+    #recents-wrap.on { display: block; }
+
+    .recents-head,
+    .results-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .recents-head h2,
+    .results-head h2 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+
+    .results-head h2 {
+      text-transform: none;
+      letter-spacing: -0.02em;
+      font-size: 18px;
+      color: var(--text);
+      font-weight: 620;
+    }
+
+    .results-head h2 em {
+      font-style: normal;
+      color: var(--muted);
+    }
+
+    .clear {
+      border: 0;
+      background: none;
+      color: var(--faint);
+      font-size: 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .clear:hover { color: var(--text); }
+
+    #recents,
+    #results-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--bg-elevated);
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .card:hover, .card:focus-visible {
+      transform: translateY(-2px);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow);
+      outline: none;
+    }
+
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: #111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%233f3f46' viewBox='0 0 24 24'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") center / 28px no-repeat;
+      overflow: hidden;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .duration {
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.82);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 650;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+    }
+
+    .duration.live {
+      background: var(--accent);
+      letter-spacing: 0.06em;
+      font-size: 10px;
+    }
+
+    .meta {
+      padding: 9px 10px 11px;
+    }
+
+    .meta strong {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .meta small {
+      display: block;
+      margin-top: 3px;
+      color: var(--faint);
+      font-size: 11px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* —— Search results —— */
+    #results {
+      display: none;
+      height: 100%;
+      overflow: auto;
+      padding: 28px 24px calc(48px + var(--safe-b));
+      background:
+        radial-gradient(900px 420px at 50% -10%, rgba(251, 44, 54, 0.07), transparent 60%),
+        var(--bg);
+    }
+
+    .results-panel {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    #results-sub {
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .note {
+      display: none;
+      margin: 8px 0 20px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--bg-elevated);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .note.on { display: block; }
+
+    .note strong { color: var(--text); font-weight: 600; }
+
+    .results-more {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    #load-more {
+      display: none;
+      height: 40px;
+      padding: 0 20px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    #load-more.on { display: inline-flex; align-items: center; }
+    #load-more:hover { background: rgba(255, 255, 255, 0.08); }
+    #load-more:disabled {
+      opacity: 0.55;
+      cursor: default;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(20px + var(--safe-b));
+      transform: translateX(-50%) translateY(12px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #1c1c1f;
+      border: 1px solid var(--line-strong);
+      color: var(--text);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 40;
+    }
+
+    .toast.on {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 720px) {
+      .wordmark { display: none; }
+      .back-label { display: none; }
+      body.playing.has-results .brand { display: none; }
+      #bar { gap: 8px; padding-left: 10px; padding-right: 10px; }
+      .play { padding: 0 12px; min-width: 0; }
+      #recents, #results-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { margin-bottom: 28px; }
+      #empty { padding-top: 32px; }
+      #results { padding: 20px 14px calc(36px + var(--safe-b)); }
+      .results-head h2 { font-size: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header id="bar">
+    <button class="back" id="back" type="button" title="Back to search results">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
+      <span class="back-label">Results</span>
+    </button>
+    <a class="brand" href="./" title="Watch" id="brand">
+      <span class="mark" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 10 10">
+          <path d="M2.2 1.1v7.8L8.8 5z" fill="#fff"/>
+        </svg>
+      </span>
+      <span class="wordmark">Watch <span>/ YouTube</span></span>
+    </a>
+    <form id="go" autocomplete="off" spellcheck="false">
+      <input id="u" type="text" inputmode="search" enterkeyhint="go"
+        placeholder="Paste a link, ID, or search" aria-label="YouTube link, video ID, or search">
+      <button class="play" id="go-btn" type="submit">Search</button>
+    </form>
+    <button class="icon-btn" id="autohide" type="button"
+      aria-pressed="false" title="Auto-hide the bar while watching" aria-label="Auto-hide the bar while watching">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="2"/>
+        <path d="M3 8h18"/>
+        <path d="M8 4v-1"/>
+      </svg>
+    </button>
+  </header>
+
+  <div id="edge" aria-hidden="true"></div>
+
+  <main id="stage">
+    <div id="empty">
+      <div class="hero">
+        <div class="hero-icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 10 10">
+            <path d="M2.2 1.1v7.8L8.8 5z" fill="#fff"/>
+          </svg>
+        </div>
+        <h1>A quieter way to watch</h1>
+        <p>Paste a YouTube link or search in the bar above. The player fills the window — no sidebar, no comments, no recommendations.</p>
+        <p class="hint">Your Premium sign-in in this browser still applies. Press <kbd>/</kbd> to focus the box.</p>
+        <p class="hint" id="key-hint" hidden>Search needs a YouTube API key (a one-time setup). Pasting a link works without one.</p>
+      </div>
+      <section id="recents-wrap">
+        <div class="recents-head">
+          <h2>Recent</h2>
+          <button class="clear" id="clear" type="button">Clear</button>
+        </div>
+        <div id="recents"></div>
+      </section>
+    </div>
+    <div id="results">
+      <div class="results-panel">
+        <div class="results-head">
+          <div>
+            <h2 id="results-title">Results</h2>
+            <p class="hint" id="results-sub"></p>
+          </div>
+          <button class="clear" id="results-clear" type="button">Clear</button>
+        </div>
+        <div class="note" id="results-note"></div>
+        <div id="results-grid"></div>
+        <div class="results-more">
+          <button id="load-more" type="button">Load more</button>
+        </div>
+      </div>
+    </div>
+    <iframe id="player" title="YouTube player" allowfullscreen
+      allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    (function () {
+      // Paste your YouTube Data API v3 key here. See API-KEY-SETUP.md.
+      const YT_API_KEY = "AIzaSyCy6SB8qMu4RMrYWDhBDx36ld2am3YvGoY";
+
+      const KEY_RECENTS = "watch.recents";
+      const KEY_HIDE = "watch.autohide";
+      const MAX_RECENTS = 8;
+      const PLACEHOLDER_KEY = "YOUR_YOUTUBE_API_KEY";
+
+      const $u = document.getElementById("u");
+      const $go = document.getElementById("go");
+      const $goBtn = document.getElementById("go-btn");
+      const $player = document.getElementById("player");
+      const $recents = document.getElementById("recents");
+      const $wrap = document.getElementById("recents-wrap");
+      const $hide = document.getElementById("autohide");
+      const $edge = document.getElementById("edge");
+      const $bar = document.getElementById("bar");
+      const $toast = document.getElementById("toast");
+      const $back = document.getElementById("back");
+      const $brand = document.getElementById("brand");
+      const $resultsTitle = document.getElementById("results-title");
+      const $resultsSub = document.getElementById("results-sub");
+      const $resultsNote = document.getElementById("results-note");
+      const $resultsGrid = document.getElementById("results-grid");
+      const $loadMore = document.getElementById("load-more");
+      const $keyHint = document.getElementById("key-hint");
+
+      let hideTimer = null;
+      let toastTimer = null;
+      let searchAbort = null;
+      let ignoreHash = false;
+      const search = { query: "", items: [], nextPageToken: null, loading: false };
+
+      function hasApiKey() {
+        const key = (YT_API_KEY || "").trim();
+        return key.length > 0 && key !== PLACEHOLDER_KEY;
+      }
+
+      function looksLikeUrl(s) {
+        return /^https?:\/\//i.test(s) ||
+          /^(www\.)?(m\.)?(music\.)?youtube\.com\//i.test(s) ||
+          /^youtu\.be\//i.test(s);
+      }
+
+      function isYouTubeHost(host) {
+        host = (host || "").replace(/^www\./, "").replace(/^m\./, "");
+        return host === "youtu.be" ||
+          host === "youtube.com" ||
+          host === "youtube-nocookie.com" ||
+          host === "music.youtube.com";
+      }
+
+      function parseYouTube(raw) {
+        const s = (raw || "").trim();
+        if (!s) return null;
+        if (/^[\w-]{11}$/.test(s)) return { id: s, list: null };
+
+        let url;
+        try {
+          url = new URL(s);
+        } catch {
+          try { url = new URL("https://" + s); }
+          catch { return null; }
+        }
+
+        if (!isYouTubeHost(url.hostname)) return null;
+
+        const list = url.searchParams.get("list");
+        let id = url.searchParams.get("v");
+
+        if (!id) {
+          const parts = url.pathname.split("/").filter(Boolean);
+          const host = url.hostname.replace(/^www\./, "").replace(/^m\./, "");
+          if (host === "youtu.be" && parts[0]) {
+            id = parts[0];
+          } else if (/^(embed|shorts|live|v)$/.test(parts[0]) && parts[1] && parts[1] !== "videoseries") {
+            id = parts[1];
+          }
+        }
+
+        if (id) {
+          id = id.replace(/[^A-Za-z0-9_-].*$/, "");
+          if (!/^[\w-]{11}$/.test(id)) id = null;
+        }
+
+        if (!id && !list) return null;
+        return { id: id || null, list: list || null };
+      }
+
+      function embedSrc(video) {
+        const params = "autoplay=1&rel=0&modestbranding=1&playsinline=1";
+        if (video.id && video.list) {
+          return "https://www.youtube.com/embed/" + encodeURIComponent(video.id) + "?" + params + "&list=" + encodeURIComponent(video.list);
+        }
+        if (video.id) {
+          return "https://www.youtube.com/embed/" + encodeURIComponent(video.id) + "?" + params;
+        }
+        return "https://www.youtube.com/embed/videoseries?list=" + encodeURIComponent(video.list) + "&" + params;
+      }
+
+      function hashFor(video, query) {
+        const parts = [];
+        if (video && video.id) parts.push("v=" + video.id);
+        if (video && video.list) parts.push("list=" + video.list);
+        if (query) parts.push("q=" + encodeURIComponent(query));
+        return parts.length ? "#" + parts.join("&") : "";
+      }
+
+      function parseHash() {
+        const raw = location.hash.replace(/^#/, "");
+        if (!raw) return { video: null, query: "" };
+        const q = new URLSearchParams(raw.includes("=") ? raw : "v=" + raw);
+        const query = q.get("q") || "";
+        const id = q.get("v");
+        const list = q.get("list");
+        let video = null;
+        if (id && !/^[\w-]{11}$/.test(id)) {
+          video = list ? { id: null, list } : null;
+        } else if (id || list) {
+          video = { id: id || null, list: list || null };
+        }
+        return { video, query };
+      }
+
+      function setHash(video, query) {
+        const next = hashFor(video, query);
+        if (location.hash === next) return;
+        ignoreHash = true;
+        history.replaceState(null, "", next || location.pathname + location.search);
+        setTimeout(function () { ignoreHash = false; }, 0);
+      }
+
+      function loadRecents() {
+        try {
+          const data = JSON.parse(localStorage.getItem(KEY_RECENTS) || "[]");
+          return Array.isArray(data) ? data : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveRecents(items) {
+        localStorage.setItem(KEY_RECENTS, JSON.stringify(items.slice(0, MAX_RECENTS)));
+      }
+
+      function timeAgo(ts) {
+        const s = Math.max(1, Math.round((Date.now() - ts) / 1000));
+        if (s < 60) return "Just now";
+        const m = Math.round(s / 60);
+        if (m < 60) return m + " min ago";
+        const h = Math.round(m / 60);
+        if (h < 24) return h + "h ago";
+        const d = Math.round(h / 24);
+        return d + "d ago";
+      }
+
+      function formatDuration(iso) {
+        if (!iso) return "";
+        if (iso === "P0D" || iso === "PT0S") return "LIVE";
+        const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+        if (!m) return "";
+        const h = parseInt(m[1] || 0, 10);
+        const min = parseInt(m[2] || 0, 10);
+        const sec = parseInt(m[3] || 0, 10);
+        if (h) return h + ":" + String(min).padStart(2, "0") + ":" + String(sec).padStart(2, "0");
+        return min + ":" + String(sec).padStart(2, "0");
+      }
+
+      function videoCard(item, onClick) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "card";
+        btn.addEventListener("click", onClick);
+
+        const thumb = document.createElement("div");
+        thumb.className = "thumb";
+        if (item.id) {
+          const img = document.createElement("img");
+          img.src = item.thumb || ("https://i.ytimg.com/vi/" + item.id + "/mqdefault.jpg");
+          img.alt = "";
+          img.loading = "lazy";
+          img.addEventListener("error", function () { img.remove(); });
+          thumb.appendChild(img);
+        }
+        if (item.duration) {
+          const dur = document.createElement("span");
+          dur.className = "duration" + (item.duration === "LIVE" ? " live" : "");
+          dur.textContent = item.duration;
+          thumb.appendChild(dur);
+        }
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        const title = document.createElement("strong");
+        title.textContent = item.title || (item.id ? item.id : "Playlist");
+        const sub = document.createElement("small");
+        sub.textContent = item.subtitle || "";
+        meta.append(title, sub);
+        btn.append(thumb, meta);
+        return btn;
+      }
+
+      function renderRecents() {
+        const items = loadRecents();
+        $wrap.classList.toggle("on", items.length > 0);
+        $recents.replaceChildren();
+        items.forEach(function (item) {
+          const subtitle = (item.list ? "Playlist · " : "") + (item.ts ? timeAgo(item.ts) : "");
+          $recents.appendChild(videoCard({
+            id: item.id,
+            title: item.title || (item.id ? item.id : "Playlist"),
+            subtitle: subtitle
+          }, function () { play(item, true); }));
+        });
+      }
+
+      function remember(video) {
+        if (!video.id && !video.list) return;
+        const existing = loadRecents().find(function (r) { return video.id && r.id === video.id; });
+        const items = loadRecents().filter(function (r) {
+          return video.id ? r.id !== video.id : r.list !== video.list;
+        });
+        const entry = {
+          id: video.id,
+          list: video.list || undefined,
+          title: video.title || (existing && existing.title),
+          ts: Date.now()
+        };
+        items.unshift(entry);
+        saveRecents(items);
+        renderRecents();
+        if (video.id && !entry.title) fetchTitle(video.id);
+      }
+
+      function fetchTitle(id) {
+        const url = "https://www.youtube.com/oembed?url=" + encodeURIComponent("https://www.youtube.com/watch?v=" + id) + "&format=json";
+        fetch(url).then(function (r) { return r.ok ? r.json() : null; }).then(function (data) {
+          if (!data || !data.title) return;
+          const items = loadRecents();
+          const hit = items.find(function (r) { return r.id === id; });
+          if (!hit) return;
+          hit.title = data.title;
+          saveRecents(items);
+          renderRecents();
+        }).catch(function () {});
+      }
+
+      function updateBack() {
+        document.body.classList.toggle("has-results", !!(search.query || search.items.length));
+      }
+
+      function stopPlayer() {
+        $player.removeAttribute("src");
+        document.body.classList.remove("playing", "bar-hidden");
+        document.title = search.query ? ("Search · " + search.query) : "Watch";
+        updateBack();
+      }
+
+      function play(video, fromUser) {
+        if (!video || (!video.id && !video.list)) {
+          $u.classList.remove("bad");
+          void $u.offsetWidth;
+          $u.classList.add("bad");
+          flash("Couldn’t read that link");
+          return;
+        }
+        $u.classList.remove("bad");
+        $u.value = video.id
+          ? "https://youtu.be/" + video.id + (video.list ? "?list=" + video.list : "")
+          : "https://www.youtube.com/playlist?list=" + video.list;
+        $player.src = embedSrc(video);
+        document.body.classList.add("playing");
+        document.title = video.title || "Watch";
+        setHash(video, search.query);
+        remember(video);
+        updateBack();
+        updateSubmitLabel();
+        scheduleHide();
+        if (fromUser) $u.blur();
+      }
+
+      function goHome(focus) {
+        if (searchAbort) searchAbort.abort();
+        search.query = "";
+        search.items = [];
+        search.nextPageToken = null;
+        search.loading = false;
+        stopPlayer();
+        document.body.classList.remove("searching");
+        $resultsGrid.replaceChildren();
+        $resultsNote.classList.remove("on");
+        $resultsNote.textContent = "";
+        $loadMore.classList.remove("on");
+        $u.value = "";
+        setHash(null, "");
+        updateSubmitLabel();
+        if (focus !== false) $u.focus();
+      }
+
+      function showResultsView() {
+        stopPlayer();
+        document.body.classList.add("searching");
+        $u.value = search.query;
+        setHash(null, search.query);
+        updateSubmitLabel();
+        $u.blur();
+      }
+
+      function renderResults() {
+        $resultsTitle.innerHTML = "Results for <em></em>";
+        $resultsTitle.querySelector("em").textContent = "“" + search.query + "”";
+        if (search.loading && !search.items.length) {
+          $resultsSub.textContent = "Searching…";
+        } else if (search.items.length) {
+          $resultsSub.textContent = search.items.length + (search.nextPageToken ? "+" : "") + " videos";
+        } else {
+          $resultsSub.textContent = "";
+        }
+        $resultsGrid.replaceChildren();
+        search.items.forEach(function (item) {
+          $resultsGrid.appendChild(videoCard({
+            id: item.id,
+            title: item.title,
+            subtitle: item.channel || "",
+            duration: item.duration,
+            thumb: item.thumb
+          }, function () { play({ id: item.id, title: item.title }, true); }));
+        });
+        $loadMore.classList.toggle("on", !!search.nextPageToken);
+        $loadMore.disabled = search.loading;
+        $loadMore.textContent = search.loading && search.items.length ? "Loading…" : "Load more";
+        updateBack();
+      }
+
+      function showNote(html) {
+        $resultsNote.innerHTML = html;
+        $resultsNote.classList.toggle("on", !!html);
+      }
+
+      function apiErrorMessage(status, data) {
+        const err = data && data.error;
+        const reason = err && err.errors && err.errors[0] && err.errors[0].reason;
+        const message = (err && err.message) || "";
+        if (status === 403 && (reason === "quotaExceeded" || reason === "dailyLimitExceeded")) {
+          return "Daily search quota is used up. Try again tomorrow, or paste a link.";
+        }
+        if (reason === "refererBlocked" || reason === "ipRefererBlocked" || /referer/i.test(message)) {
+          return "This API key isn’t allowed from this site. Check the key restrictions.";
+        }
+        if (reason === "keyInvalid" || /API key/i.test(message)) {
+          return "That API key doesn’t look valid. Check the key in this page’s script.";
+        }
+        return "Search failed. Try again, or paste a link.";
+      }
+
+      async function apiGet(path, params, signal) {
+        const url = new URL("https://www.googleapis.com/youtube/v3/" + path);
+        Object.keys(params).forEach(function (k) {
+          if (params[k] != null && params[k] !== "") url.searchParams.set(k, params[k]);
+        });
+        url.searchParams.set("key", YT_API_KEY);
+        const res = await fetch(url.toString(), { signal: signal });
+        let data = null;
+        try { data = await res.json(); } catch (e) { data = null; }
+        if (!res.ok) {
+          const err = new Error(apiErrorMessage(res.status, data));
+          err.status = res.status;
+          throw err;
+        }
+        return data;
+      }
+
+      async function fetchDurations(ids, signal) {
+        if (!ids.length) return {};
+        const data = await apiGet("videos", {
+          part: "contentDetails",
+          id: ids.join(","),
+          maxResults: ids.length
+        }, signal);
+        const map = {};
+        (data.items || []).forEach(function (item) {
+          map[item.id] = formatDuration(item.contentDetails && item.contentDetails.duration);
+        });
+        return map;
+      }
+
+      async function runSearch(query, append) {
+        query = (query || "").trim();
+        if (!query) return;
+
+        document.body.classList.add("searching");
+        document.body.classList.remove("playing", "bar-hidden");
+        $player.removeAttribute("src");
+
+        if (!append) {
+          if (searchAbort) searchAbort.abort();
+          search.query = query;
+          search.items = [];
+          search.nextPageToken = null;
+          showNote("");
+          renderResults();
+          setHash(null, query);
+          document.title = "Search · " + query;
+        }
+
+        if (!hasApiKey()) {
+          showNote("<strong>Search needs a YouTube API key.</strong> You can still paste a link or ID to play a video. To turn on search, add a YouTube Data API v3 key in this page’s script — see API-KEY-SETUP.md.");
+          $resultsSub.textContent = "";
+          updateBack();
+          return;
+        }
+
+        search.loading = true;
+        renderResults();
+        const ac = new AbortController();
+        searchAbort = ac;
+
+        try {
+          const data = await apiGet("search", {
+            part: "snippet",
+            type: "video",
+            maxResults: "24",
+            safeSearch: "none",
+            q: query,
+            pageToken: append ? search.nextPageToken : ""
+          }, ac.signal);
+
+          const fresh = (data.items || []).map(function (item) {
+            const id = item.id && item.id.videoId;
+            const sn = item.snippet || {};
+            const thumbs = sn.thumbnails || {};
+            const thumb = (thumbs.medium && thumbs.medium.url) ||
+              (thumbs.high && thumbs.high.url) ||
+              (id ? "https://i.ytimg.com/vi/" + id + "/mqdefault.jpg" : "");
+            return {
+              id: id,
+              title: sn.title || id,
+              channel: sn.channelTitle || "",
+              thumb: thumb,
+              duration: ""
+            };
+          }).filter(function (item) { return !!item.id; });
+
+          try {
+            const durations = await fetchDurations(fresh.map(function (i) { return i.id; }), ac.signal);
+            fresh.forEach(function (item) {
+              if (durations[item.id]) item.duration = durations[item.id];
+            });
+          } catch (e) {
+            if (e.name === "AbortError") throw e;
+            /* Durations are optional; keep the results even if this call fails. */
+          }
+
+          if (searchAbort !== ac) return;
+          search.items = append ? search.items.concat(fresh) : fresh;
+          search.nextPageToken = data.nextPageToken || null;
+          search.loading = false;
+          if (!search.items.length) {
+            showNote("No videos found for “" + query.replace(/[&<>]/g, "") + "”. Try another search, or paste a link.");
+          }
+          renderResults();
+        } catch (e) {
+          if (e.name === "AbortError") return;
+          search.loading = false;
+          search.nextPageToken = append ? search.nextPageToken : null;
+          showNote(e.message || "Search failed. Try again, or paste a link.");
+          renderResults();
+        }
+      }
+
+      function flash(msg) {
+        $toast.textContent = msg;
+        $toast.classList.add("on");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { $toast.classList.remove("on"); }, 2200);
+      }
+
+      function isLinkInput(value) {
+        const s = (value || "").trim();
+        return !!(parseYouTube(s) || looksLikeUrl(s));
+      }
+
+      function updateSubmitLabel() {
+        $goBtn.textContent = isLinkInput($u.value) ? "Play" : "Search";
+      }
+
+      function scheduleHide() {
+        clearTimeout(hideTimer);
+        if (!document.body.classList.contains("autohide")) {
+          document.body.classList.remove("bar-hidden");
+          return;
+        }
+        if (!document.body.classList.contains("playing")) return;
+        hideTimer = setTimeout(function () {
+          if (!$bar.matches(":hover") && document.activeElement !== $u) {
+            document.body.classList.add("bar-hidden");
+          }
+        }, 2200);
+      }
+
+      function showBar() {
+        document.body.classList.remove("bar-hidden");
+        scheduleHide();
+      }
+
+      $go.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const raw = $u.value.trim();
+        if (!raw) return;
+        const video = parseYouTube(raw);
+        if (video) {
+          play(video, true);
+          return;
+        }
+        if (looksLikeUrl(raw)) {
+          $u.classList.remove("bad");
+          void $u.offsetWidth;
+          $u.classList.add("bad");
+          flash("Couldn’t read that link");
+          return;
+        }
+        runSearch(raw, false);
+      });
+
+      $u.addEventListener("input", updateSubmitLabel);
+
+      $back.addEventListener("click", function () {
+        if (search.query) showResultsView();
+      });
+
+      $brand.addEventListener("click", function (e) {
+        if (location.pathname && location.pathname !== "./") {
+          e.preventDefault();
+          goHome(true);
+        }
+      });
+
+      document.getElementById("results-clear").addEventListener("click", function () {
+        goHome(true);
+      });
+
+      $loadMore.addEventListener("click", function () {
+        if (search.loading || !search.nextPageToken || !search.query) return;
+        runSearch(search.query, true);
+      });
+
+      $hide.addEventListener("click", function () {
+        const on = $hide.getAttribute("aria-pressed") !== "true";
+        $hide.setAttribute("aria-pressed", on ? "true" : "false");
+        document.body.classList.toggle("autohide", on);
+        localStorage.setItem(KEY_HIDE, on ? "1" : "0");
+        if (on) scheduleHide();
+        else document.body.classList.remove("bar-hidden");
+      });
+
+      $edge.addEventListener("mouseenter", showBar);
+      $edge.addEventListener("click", showBar);
+      $bar.addEventListener("mouseenter", function () {
+        if (document.body.classList.contains("autohide")) {
+          document.body.classList.remove("bar-hidden");
+          clearTimeout(hideTimer);
+        }
+      });
+      $bar.addEventListener("mouseleave", scheduleHide);
+
+      document.addEventListener("pointerdown", function (e) {
+        if (!document.body.classList.contains("autohide")) return;
+        if (!document.body.classList.contains("playing")) return;
+        if ($bar.contains(e.target) || $edge.contains(e.target)) return;
+        document.body.classList.add("bar-hidden");
+      });
+
+      document.getElementById("clear").addEventListener("click", function () {
+        saveRecents([]);
+        renderRecents();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+          const tag = (document.activeElement && document.activeElement.tagName) || "";
+          if (tag !== "INPUT" && tag !== "TEXTAREA") {
+            e.preventDefault();
+            showBar();
+            $u.focus();
+            $u.select();
+          }
+        }
+        if (e.key === "Escape") {
+          showBar();
+          if (document.body.classList.contains("playing") && search.query) {
+            showResultsView();
+          } else {
+            $u.blur();
+          }
+        }
+      });
+
+      window.addEventListener("hashchange", function () {
+        if (ignoreHash) return;
+        const parsed = parseHash();
+        if (parsed.query && parsed.query !== search.query) {
+          search.query = parsed.query;
+        }
+        if (parsed.video) play(parsed.video, false);
+        else if (parsed.query) runSearch(parsed.query, false);
+        else goHome(false);
+      });
+
+      if (localStorage.getItem(KEY_HIDE) === "1") {
+        $hide.setAttribute("aria-pressed", "true");
+        document.body.classList.add("autohide");
+      }
+
+      if (!hasApiKey()) $keyHint.hidden = false;
+
+      renderRecents();
+      updateSubmitLabel();
+
+      const initial = parseHash();
+      if (initial.video) {
+        if (initial.query) search.query = initial.query;
+        play(initial.video, false);
+      } else if (initial.query) {
+        $u.value = initial.query;
+        updateSubmitLabel();
+        runSearch(initial.query, false);
+      } else {
+        $u.focus();
+      }
+    })();
+  </script>
+</body>
+</html>
