@@ -29,4 +29,4 @@ cats_site_url: "https://atidbit.io"
 # GoatCounter site code for the cookie-free visitor count on /cats/ pages only
 # (the CODE in https://CODE.goatcounter.com). Empty = nothing rendered or loaded.
 # See cats/README.md.
-cats_goatcounter_code: ""
+cats_goatcounter_code: "atidbitcats"
