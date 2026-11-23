@@ -1,0 +1,26 @@
+{%- comment -%}
+  Cookie-free GoatCounter visitor count for /cats/ pages only.
+  Driven by site.cats_goatcounter_code in _config.yml. Empty = renders and loads nothing.
+  The public "N views" count needs GoatCounter's setting
+  "Allow adding visitor counts on your website" turned on. See cats/README.md.
+{%- endcomment -%}
+{%- assign gc_code = site.cats_goatcounter_code | strip -%}
+{%- if gc_code != "" %}
+      <p class="views" id="cats-views" hidden></p>
+      <script data-goatcounter="https://{{ gc_code }}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+      <script>
+      (function () {
+        var el = document.getElementById('cats-views');
+        if (!el || !window.fetch) return;
+        fetch('https://{{ gc_code }}.goatcounter.com/counter/' + encodeURIComponent(location.pathname) + '.json')
+          .then(function (r) { if (!r.ok) throw 0; return r.json(); })
+          .then(function (d) {
+            if (!d || d.count == null || d.count === '') throw 0;
+            var c = String(d.count);
+            el.textContent = c + (c === '1' ? ' view' : ' views');
+            el.hidden = false;
+          })
+          .catch(function () { el.hidden = true; });
+      })();
+      </script>
+{%- endif %}

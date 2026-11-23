@@ -1,0 +1,23 @@
+---
+layout: cats
+title: Daily Cat Memes
+description: "A fresh cat meme every day. One cat, one meme, no noise."
+---
+{%- assign memes = site.cat_memes | where_exp: "m", "m.date <= site.time" | sort: "date" | reverse -%}
+<h2 class="visually-hidden">Latest memes</h2>
+<div class="feed">
+{%- for m in memes %}
+    <article class="meme">
+      <a class="meme-img" href="{{ m.url }}">
+        <img src="{{ m.image }}" alt="{{ m.alt | escape }}" width="{{ m.width }}" height="{{ m.height }}" decoding="async"{% if forloop.first %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+      </a>
+      <div class="meme-body">
+        <h3 class="meme-title"><a href="{{ m.url }}">{{ m.title }}</a></h3>
+        <p class="meme-caption">{{ m.caption }}</p>
+        <p class="meme-date"><time datetime="{{ m.date | date_to_xmlschema }}">{{ m.date | date: "%B %-d, %Y" }}</time></p>
+      </div>
+    </article>
+{%- else %}
+    <p class="feed-empty">No memes yet. Check back soon.</p>
+{%- endfor %}
+</div>

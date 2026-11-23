@@ -1,1 +1,32 @@
 permalink: pretty
+
+# Daily Cat Memes (/cats/). Everything below is scoped to the cats section.
+# Future-dated posts are not built (GitHub Pages' gem defaults to future: true).
+future: false
+collections:
+  cat_memes:
+    output: true
+    permalink: /cats/:year/:month/:day/:title/
+defaults:
+  - scope:
+      path: ""
+      type: cat_memes
+    values:
+      layout: cat_meme
+# Keep Jekyll's default excludes, and don't publish the cats how-to file.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - CNAME
+  - cats/README.md
+# Absolute base URL used for canonical, Open Graph, and RSS links on /cats/.
+cats_site_url: "https://atidbit.io"
+# GoatCounter site code for the cookie-free visitor count on /cats/ pages only
+# (the CODE in https://CODE.goatcounter.com). Empty = nothing rendered or loaded.
+# See cats/README.md.
+cats_goatcounter_code: ""
