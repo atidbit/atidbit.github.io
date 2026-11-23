@@ -1,0 +1,25 @@
+---
+layout: cats
+---
+{%- assign base = site.cats_site_url -%}
+<article class="meme meme-single">
+  <h1 class="meme-title">{{ page.title }}</h1>
+  <p class="meme-date"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+  <figure>
+    <img src="{{ page.image }}" alt="{{ page.alt | escape }}" width="{{ page.width }}" height="{{ page.height }}" decoding="async" fetchpriority="high">
+    <figcaption>{{ page.caption }}</figcaption>
+  </figure>
+  {%- assign note = content | strip -%}
+  {%- if note != "" %}
+  <div class="meme-note">{{ content }}</div>
+  {%- endif %}
+</article>
+{%- assign prev_ok = false -%}
+{%- if page.previous -%}{%- assign prev_ok = true -%}{%- endif -%}
+{%- assign next_ok = false -%}
+{%- if page.next and page.next.date <= site.time -%}{%- assign next_ok = true -%}{%- endif %}
+<nav class="pager" aria-label="More memes">
+  {%- if next_ok %}<a class="pager-next" href="{{ page.next.url }}" rel="next"><span aria-hidden="true">←</span> Newer</a>{% else %}<span></span>{% endif %}
+  <a class="pager-all" href="/cats/">All memes</a>
+  {%- if prev_ok %}<a class="pager-prev" href="{{ page.previous.url }}" rel="prev">Older <span aria-hidden="true">→</span></a>{% else %}<span></span>{% endif %}
+</nav>

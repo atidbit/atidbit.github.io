@@ -61,4 +61,16 @@
 <changefreq>always</changefreq>
 <priority>0.5</priority>
 </url>
+<url>
+<loc>https://atidbit.io/cats/</loc>
+<lastmod>2026-11-22</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.6</priority>
+</url>
+<url>
+<loc>https://atidbit.io/cats/2026/11/22/airline-weight-system/</loc>
+<lastmod>2026-11-22</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
 </urlset>
