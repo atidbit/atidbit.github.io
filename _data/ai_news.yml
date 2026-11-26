@@ -31,12 +31,69 @@ lede: >
 canonical: https://atidbit.io/ai/
 
 days:
+  - id: 2026-11-26
+    heading: "Thursday, Nov 26, 2026"
+    summary: >
+      NVIDIA open-sourced training data and a fine-tuning recipe for its
+      Nemotron 3.5 Parse document model, Kioxia and NVIDIA showed SSDs
+      stretching GPU memory past a petabyte, and Nvidia reportedly halted AI
+      server shipments to four Southeast Asian countries.
+    sections:
+      - label: Models & Releases
+        pill: Models
+        items:
+          - title: "NVIDIA opens training data and a fine-tuning recipe for Nemotron 3.5 Parse"
+            source: NVIDIA on Hugging Face
+            url: https://huggingface.co/blog/nvidia/building-on-nemotron-35-parse-open-data-fine-tunin
+            date: 2026-11-26
+            summary: "The compact document model turns page images into structured data; NVIDIA released synthetic chart and table datasets, a fine-tuning guide, and a DFlash2 speculator for faster inference."
+            image: /ai/images/2026/nemotron-3-5-parse-open-data.jpg
+            image_alt: "Nemotron 3.5 Parse title graphic"
+
+      - label: Research
+        pill: Research
+        items:
+          - title: "Kioxia and NVIDIA use SSDs to extend GPU memory to petabyte scale"
+            source: Kioxia
+            url: https://www.kioxia.com/en-jp/business/news/2026/20261126-1.html
+            date: 2026-11-26
+            summary: "A proof of concept on a GB200 NVL72 rack with 144 Kioxia SSDs and NVIDIA SCADA software showed the potential to process a database of 2 trillion vectors."
+
+          - title: "Study finds measurement noise sets a scaling law for biological AI"
+            source: Cellular Intelligence (Business Wire)
+            url: https://www.biospace.com/press-releases/cellular-intelligence-announces-nature-machine-intelligence-publication-establishing-a-new-scaling-law-for-biological-ai
+            date: 2026-11-26
+            summary: "A Nature Machine Intelligence paper analyzing more than 2,000 model configurations says data quality predicts biological AI performance alongside dataset and model size."
+
+      - label: Policy & Safety
+        pill: Policy
+        items:
+          - title: "Nvidia reportedly halts AI server shipments to four Southeast Asian countries"
+            source: Tom's Hardware
+            url: https://www.tomshardware.com/tech-industry/policy/nvidia-stops-ai-gpu-shipments-to-southeast-asia-report-claims-data-centers-in-singapore-other-countries-in-trouble-as-commerce-department-requires-cloud-providers-to-obtain-export-license
+            date: 2026-11-26
+            summary: "Citing the Financial Times, the report says server makers told customers in Singapore, Thailand, Malaysia, and Indonesia to expect paused orders after new U.S. cloud export rules."
+            image: /ai/images/2026/nvidia-southeast-asia-shipments.jpg
+            image_alt: "Nvidia logo on a building"
+
+      - label: Tools
+        pill: Tools
+        items:
+          - title: "Hugging Face launches a llama.cpp benchmark dashboard for AMD hardware"
+            source: Hugging Face
+            url: https://huggingface.co/blog/ggml-org/llamacpp-amd-bench
+            date: 2026-11-26
+            summary: "The public dashboard tracks prompt-processing and generation speed across llama.cpp builds, models, and quantizations on AMD Radeon and Ryzen hardware."
+            image: /ai/images/2026/llamacpp-amd-benchmark-dashboard.jpg
+            image_alt: "llama.cpp and AMD benchmark dashboard banner"
+
   - id: 2026-11-25
     heading: "Wednesday, Nov 25, 2026"
     summary: >
-      Google DeepMind released Mass Spec Skills for Antigravity, and Google
-      Research open-sourced a framework for testing how well assistants infer
-      motives from a user’s account of events.
+      Anthropic used Claude agents to move its Messages API to Rust, the FCC
+      conditionally cleared SpaceX's orbital data-center constellation, and
+      OpenAI began merging ChatGPT usage limits. Google DeepMind also released
+      Mass Spec Skills for Antigravity.
     sections:
       - label: Research
         pill: Research
@@ -56,6 +113,52 @@ days:
             summary: "The framework uses multi-agent simulations with a hidden motive and a 20,000-example dataset to test what an assistant can infer from a user’s story."
             image: /ai/images/2026/verifiable-social-reasoning.jpg
             image_alt: "Google Research wordmark with a collage of research imagery"
+
+          - title: "Anthropic used Claude agents to move its Messages API from Python to Rust"
+            source: Anthropic
+            url: https://www.anthropic.com/research/migrating-api-to-rust
+            date: 2026-11-25
+            summary: "Running the new service beside the old one on live traffic let agents find and fix parity gaps; Anthropic says the Rust API uses about 70% less CPU per request."
+            image: /ai/images/2026/anthropic-messages-api-rust.jpg
+            image_alt: "Anthropic illustration for Migrating our Messages API to Rust"
+
+      - label: Policy & Safety
+        pill: Policy
+        items:
+          - title: "FCC conditionally clears SpaceX for up to 1 million Starmind data-center satellites"
+            source: Ars Technica
+            url: https://arstechnica.com/space/2026/11/the-fcc-has-authorized-spacex-to-deploy-1-million-satellites/
+            date: 2026-11-25
+            summary: "The authorization covers a proposed constellation of orbital data centers; it does not show that computing in orbit is technically or economically viable."
+            image: /ai/images/2026/fcc-spacex-starmind.jpg
+            image_alt: "Artist's rendering of a SpaceX Starmind satellite"
+
+          - title: "Microsoft details how threat actors abuse the ARTEX agentic AI framework"
+            source: Microsoft Security
+            url: https://www.microsoft.com/en-us/security/blog/2026/11/25/what-defenders-need-to-know-artex-agentic-ai-framework-threat-actors-abuse/
+            date: 2026-11-25
+            summary: "State-sponsored and criminal groups use the open pentest tool to automate reconnaissance and credential attacks; one campaign logged more than 151,000 failed sign-ins."
+            image: /ai/images/2026/microsoft-artex-threat-intel.jpg
+            image_alt: "Microsoft Security blog graphic for ARTEX"
+
+          - title: "Apple pulls the Talkie AI companion app from the App Store"
+            source: AppleInsider
+            url: https://appleinsider.com/articles/26/11/26/ai-chatbot-companion-app-talkie-pulled-from-apple-app-store-after-investigation
+            date: 2026-11-25
+            summary: "Apple cited sexual content after an investigation reported harmful chats with children; the app remains available on the web and Google Play."
+            image: /ai/images/2026/talkie-app-store-removal.jpg
+            image_alt: "Talkie app promotional image"
+
+      - label: Tools
+        pill: Tools
+        items:
+          - title: "ChatGPT's Chat and Work will share one usage allowance"
+            source: TechCrunch
+            url: https://techcrunch.com/2026/11/25/openai-says-heavy-chatgpt-users-may-hit-limits-sooner-as-it-merges-chat-and-work/
+            date: 2026-11-25
+            summary: "OpenAI says its heaviest users may hit limits sooner; Instant chats stay unlimited, and a broader rollout is planned for December."
+            image: /ai/images/2026/chatgpt-shared-usage-limits.jpg
+            image_alt: "ChatGPT logo"
     stocks:
       as_of: "2026-11-25"
       as_of_label: "Prices as of market close Wed Nov 25, 2026 (ET)"
