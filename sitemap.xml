@@ -1,5 +1,12 @@
 ---
+layout: null
 ---
+{%- comment -%}
+  Generated at build time. New AI News days (site.data.ai_news.days)
+  and cat memes (site.cat_memes) are included automatically.
+  Pages with sitemap: false, draft, or a robots noindex meta are omitted.
+  Do not hand-edit URL lists here.
+{%- endcomment -%}
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://atidbit.io/</loc>
@@ -7,24 +14,16 @@
 <changefreq>always</changefreq>
 <priority>1.0</priority>
 </url>
+{%- for post in site.posts -%}
+{%- unless post.sitemap == false or post.content contains 'content="noindex"' or post.content contains "content='noindex'" or post.content contains 'CONTENT="noindex"' -%}
 <url>
-<loc>https://atidbit.io/2025/12/27/management-influence-on-psychological-safety-in-federal-government-organizations/</loc>
-<lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
+<loc>https://atidbit.io{{ post.url }}</loc>
+<lastmod>{% if post.last_modified_at %}{{ post.last_modified_at | date: "%Y-%m-%d" }}{% else %}{{ post.date | date: "%Y-%m-%d" }}{% endif %}</lastmod>
 <changefreq>always</changefreq>
 <priority>0.7</priority>
 </url>
-<url>
-<loc>https://atidbit.io/2025/09/30/the-relationship-between-supervisors-transformational-leadership-behaviors-employees-psychological-safety-climate/</loc>
-<lastmod>2026-11-07</lastmod>
-<changefreq>always</changefreq>
-<priority>0.7</priority>
-</url>
-<url>
-<loc>https://atidbit.io/2023/05/31/supervisor-influence-on-psychological-safety/</loc>
-<lastmod>2026-11-07</lastmod>
-<changefreq>always</changefreq>
-<priority>0.7</priority>
-</url>
+{%- endunless -%}
+{%- endfor %}
 <url>
 <loc>https://atidbit.io/files/BrownVS_CIU_DIS_PhD-2025.pdf</loc>
 <lastmod>{{ site.time | date_to_xmlschema }}</lastmod>
@@ -61,16 +60,40 @@
 <changefreq>always</changefreq>
 <priority>0.5</priority>
 </url>
+{%- assign latest_day = site.data.ai_news.days | first -%}
 <url>
-<loc>https://atidbit.io/cats/</loc>
-<lastmod>2026-11-22</lastmod>
+<loc>https://atidbit.io/ai/</loc>
+<lastmod>{{ latest_day.id | date: "%Y-%m-%d" }}</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.6</priority>
 </url>
 <url>
-<loc>https://atidbit.io/cats/2026/11/22/airline-weight-system/</loc>
-<lastmod>2026-11-22</lastmod>
+<loc>https://atidbit.io/ai/archive/</loc>
+<lastmod>{{ latest_day.id | date: "%Y-%m-%d" }}</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+{%- for day in site.data.ai_news.days %}
+<url>
+<loc>https://atidbit.io/ai/{{ day.id | date: "%Y/%m/%d" }}/</loc>
+<lastmod>{{ day.id | date: "%Y-%m-%d" }}</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
+{%- endfor -%}
+{%- assign memes = site.cat_memes | where_exp: "m", "m.date <= site.time" | where_exp: "m", "m.sitemap != false" | sort: "date" | reverse -%}
+<url>
+<loc>https://atidbit.io/cats/</loc>
+<lastmod>{{ memes.first.date | date: "%Y-%m-%d" }}</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.6</priority>
+</url>
+{%- for m in memes %}
+<url>
+<loc>https://atidbit.io{{ m.url }}</loc>
+<lastmod>{{ m.date | date: "%Y-%m-%d" }}</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+{%- endfor %}
 </urlset>
