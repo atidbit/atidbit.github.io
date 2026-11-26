@@ -1,6 +1,6 @@
 # AI News daily roundup data.
-# The page shows the latest 7 day entries (newest first). Older days stay in this
-# file so they can be reused later; they simply drop off /ai/.
+# /ai/ shows only the newest day. Older days stay in this file and are
+# published as /ai/YYYY/MM/DD/ permalinks and listed on /ai/archive/.
 #
 # Daily run (see also DAILY-RUNBOOK.md in the work folder):
 #   1. Find 5–10 real AI stories from the past ~24 hours. Skip any URL already
@@ -25,7 +25,6 @@ lede: >
   The day's most important AI stories from original sources. Each item has a
   short summary and a link to the full article.
 canonical: https://atidbit.io/ai/
-visible_days: 7
 
 days:
   - id: 2026-11-25
