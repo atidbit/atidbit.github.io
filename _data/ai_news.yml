@@ -112,6 +112,16 @@ days:
           price: 163.59
           change: 2.41
           change_pct: 1.50
+        - ticker: ANT
+          name: Anthropic
+          price: 82.79
+          change: 0.88
+          change_pct: 1.07
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 127.44
+          change: 1.63
+          change_pct: 1.30
 
   - id: 2026-11-24
     heading: "Tuesday, Nov 24, 2026"
@@ -197,6 +207,16 @@ days:
           price: 161.18
           change: 1.82
           change_pct: 1.14
+        - ticker: ANT
+          name: Anthropic
+          price: 81.91
+          change: -5.73
+          change_pct: -6.54
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 125.81
+          change: -7.54
+          change_pct: -5.65
 
   - id: 2026-11-23
     heading: "Monday, Nov 23, 2026"
@@ -270,6 +290,16 @@ days:
           price: 159.36
           change: 15.87
           change_pct: 11.06
+        - ticker: ANT
+          name: Anthropic
+          price: 87.64
+          change: -1.27
+          change_pct: -1.43
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 133.35
+          change: 5.56
+          change_pct: 4.35
 
   - id: 2026-11-20
     heading: "Friday, Nov 20, 2026"
@@ -354,6 +384,16 @@ days:
           price: 143.49
           change: -10.19
           change_pct: -6.63
+        - ticker: ANT
+          name: Anthropic
+          price: 88.91
+          change: -8.26
+          change_pct: -8.50
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 127.79
+          change: -10.64
+          change_pct: -7.69
 
   - id: 2026-11-19
     heading: "Thursday, Nov 19, 2026"
@@ -427,6 +467,16 @@ days:
           price: 153.68
           change: -2.99
           change_pct: -1.91
+        - ticker: ANT
+          name: Anthropic
+          price: 97.17
+          change: null
+          change_pct: null
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 138.43
+          change: -5.07
+          change_pct: -3.53
 
   - id: 2026-11-18
     heading: "Wednesday, Nov 18, 2026"
@@ -520,6 +570,11 @@ days:
           price: 156.67
           change: 0.11
           change_pct: 0.07
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 143.50
+          change: 1.80
+          change_pct: 1.27
 
   - id: 2026-11-17
     heading: "Tuesday, Nov 17, 2026"
@@ -624,3 +679,8 @@ days:
           price: 156.56
           change: -3.83
           change_pct: -2.39
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 141.70
+          change: 4.34
+          change_pct: 3.16
