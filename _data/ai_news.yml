@@ -1,0 +1,231 @@
+# AI News daily roundup data.
+# The page shows the latest 7 day entries (newest first). Older days stay in this
+# file so they can be reused later; they simply drop off /ai/.
+#
+# Daily run (see also DAILY-RUNBOOK.md in the work folder):
+#   1. Find 5–10 real AI stories from the past ~24 hours. Skip any URL already
+#      in this file. Use each article’s official publish date, not the time of
+#      the run. Do not invent stories, quotes, or numbers.
+#   2. Verify every item.url returns HTTP 200.
+#   3. Save each story’s og:image into ai/images/2026/ as a ~480px-wide
+#      compressed JPEG. If there is no usable image, omit `image` to use the
+#      maroon “AI NEWS” placeholder.
+#   4. Prepend a new day object under `days:` (newest first) with a heading
+#      like “Wednesday, Nov 25, 2026”, a short summary, and category sections.
+#   5. Run:  python3 /workspace/webdesign-work/atidbit-ai-2026-11-25/generate.py
+#   6. Run the sensitive-info check (no secrets, keys, or personal details).
+#   7. Follow DAILY-RUNBOOK.md to commit, export a patch, and publish.
+#
+# Headlines and summaries are short paraphrases; every item.url must be a
+# verified original-article link.
+
+site_name: AI News
+tagline: DAILY ROUNDUP OF AI NEWS
+lede: >
+  The day's most important AI stories from original sources. Each item has a
+  short summary and a link to the full article.
+canonical: https://atidbit.io/ai/
+visible_days: 7
+
+days:
+  - id: 2026-11-25
+    heading: "Wednesday, Nov 25, 2026"
+    summary: >
+      Google DeepMind released Mass Spec Skills for Antigravity, and Google
+      Research open-sourced a framework for testing how well assistants infer
+      motives from a user’s account of events.
+    sections:
+      - label: Research
+        pill: Research
+        items:
+          - title: "DeepMind adds Mass Spec Skills so Antigravity can identify molecules"
+            source: Google DeepMind
+            url: https://deepmind.google/blog/interpreting-mass-spectra-with-google-antigravity/
+            date: 2026-11-25
+            summary: "On 100 catalogued compounds, adding the skills raised exact-molecule identification to about 97% across three Gemini models, DeepMind says."
+            image: /ai/images/2026/mass-spec-skills-antigravity.jpg
+            image_alt: "Title card reading Identifying molecules with Mass Spec Skills for Google Antigravity"
+
+          - title: "Google Research open-sources a test of social reasoning in AI assistants"
+            source: Google Research
+            url: https://research.google/blog/verifiable-social-reasoning-for-llm-assistants/
+            date: 2026-11-25
+            summary: "The framework uses multi-agent simulations with a hidden motive and a 20,000-example dataset to test what an assistant can infer from a user’s story."
+            image: /ai/images/2026/verifiable-social-reasoning.jpg
+            image_alt: "Google Research wordmark with a collage of research imagery"
+
+  - id: 2026-11-24
+    heading: "Tuesday, Nov 24, 2026"
+    summary: >
+      Cognition released SWE-2.1, a major upgrade to its coding model, and
+      OpenAI reported that GPT-6 models can design proteins using reasoning
+      and code.
+    sections:
+      - label: Models & Releases
+        pill: Models
+        items:
+          - title: "Cognition releases SWE-2.1, a major upgrade to its coding model"
+            source: Cognition
+            url: https://cognition.com/blog/swe-2-1
+            date: 2026-11-24
+            summary: "Trained with reinforcement learning on Kimi K3, it posts large gains on software-engineering benchmarks."
+            image: /ai/images/2026/swe-2-1.jpg
+            image_alt: "A grid diagram of boxes and lines labeled SWE 2.1"
+
+      - label: Research
+        pill: Research
+        items:
+          - title: "GPT-6 models design new proteins using only reasoning and code"
+            source: OpenAI
+            url: https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/
+            date: 2026-11-24
+            summary: "Lab tests with Onava found binding evidence across five targets. Specialized models still helped pick candidates."
+            image: /ai/images/2026/gpt-6-protein-design.jpg
+            image_alt: "Title card reading GPT-6 models demonstrate intrinsic protein-design capabilities, on a pink-to-green background"
+
+  - id: 2026-11-23
+    heading: "Monday, Nov 23, 2026"
+    summary: >
+      Google DeepMind used teams of Gemini 4 agents and the Lean theorem prover
+      to find cheaper quantum algorithms for fusion and chemistry simulations.
+    sections:
+      - label: Research
+        pill: Research
+        items:
+          - title: "Gemini 4 agents find cheaper quantum algorithms and prove them in Lean"
+            source: Google DeepMind
+            url: https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/
+            date: 2026-11-23
+            summary: "DeepMind reports an 11.8× cost cut for a fusion-related circuit and is open-sourcing its Lean library."
+            image: /ai/images/2026/quantum-algorithms-agents.jpg
+            image_alt: "Title card for DeepMind’s quantum-algorithm research, with a glowing sphere illustration"
+
+  - id: 2026-11-20
+    heading: "Friday, Nov 20, 2026"
+    summary: >
+      Anthropic closed its initial public offering at $83 a share, and OpenAI
+      described new defenses against adversarial distillation of GPT-6.2.
+    sections:
+      - label: Policy & Safety
+        pill: Policy
+        items:
+          - title: "OpenAI hardens GPT-6.2 against adversarial distillation"
+            source: OpenAI
+            url: https://openai.com/index/combatting-adversarial-distillation/
+            date: 2026-11-20
+            summary: "Red-team tests found earlier-turn reasoning extraction fell from 54.0% on GPT-6 Astra to 0.2% on GPT-6.2 Astra."
+            image: /ai/images/2026/combatting-adversarial-distillation.jpg
+            image_alt: "Social image from OpenAI’s post on adversarial distillation defenses"
+
+      - label: Business & Funding
+        pill: Business
+        items:
+          - title: "Anthropic closes its IPO at $83 a share, raising about $93.5 billion"
+            source: Anthropic
+            url: https://www.anthropic.com/news/ipo-close
+            date: 2026-11-20
+            summary: "Including the underwriters’ full option, 1.127 billion Class A shares were sold. The stock trades on Nasdaq as ANT."
+            image: /ai/images/2026/anthropic-ipo-close.jpg
+            image_alt: "The Anthropic wordmark on a cream background"
+
+  - id: 2026-11-19
+    heading: "Thursday, Nov 19, 2026"
+    summary: >
+      Google opened Genie 4 world generation to developers on the Gemini API,
+      with interactive 720p environments and real-time controls.
+    sections:
+      - label: Tools
+        pill: Tools
+        items:
+          - title: "Genie 4 world generation opens to developers on the Gemini API"
+            source: Google
+            url: https://blog.google/innovation-and-ai/technology/developers-tools/genie-4-in-gemini-api/
+            date: 2026-11-19
+            summary: "Developers can build interactive 720p environments with native audio and real-time controls."
+            image: /ai/images/2026/genie-4-gemini-api.jpg
+            image_alt: "A person in a car at night under neon signs, with the words Genie 4"
+
+  - id: 2026-11-18
+    heading: "Wednesday, Nov 18, 2026"
+    summary: >
+      Google released Gemini 4 Neon, OpenAI explained how it manages
+      frontier-model risk, and California published recommendations for
+      mandatory AI safety standards, including emergency shutdown authority.
+    sections:
+      - label: Models & Releases
+        pill: Models
+        items:
+          - title: "Google introduces Gemini 4 Neon for coding, knowledge work, and science"
+            source: Google
+            url: https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/
+            date: 2026-11-18
+            summary: "It costs $3 per million input tokens and $15 per million output tokens, with a 1 million-token context window."
+            image: /ai/images/2026/gemini-4-neon.jpg
+            image_alt: "An orange neon sign reading Gemini 4 Neon"
+
+      - label: Policy & Safety
+        pill: Policy
+        items:
+          - title: "California proposes mandatory AI safety standards and emergency shutdown power"
+            source: Governor of California
+            url: https://www.gov.ca.gov/2026/11/18/governor-newsoms-nation-leading-ai-safety-framework-is-getting-even-stronger-as-california-releases-next-steps-on-mandatory-safety-standards-and-oversight/
+            date: 2026-11-18
+            summary: "The governor’s office recommends baseline standards, independent oversight, and emergency shutdown authority. This is not law."
+            image: /ai/images/2026/ca-ai-safety-framework.jpg
+            image_alt: "California governor’s office graphic announcing stronger AI safety standards and oversight"
+
+          - title: "OpenAI explains how it manages frontier-model risk from training to release"
+            source: OpenAI
+            url: https://openai.com/index/managing-frontier-ai-risk/
+            date: 2026-11-18
+            summary: "OpenAI describes layered safeguards, trains frontier models offline, and says it has held back models such as GPT-6.1 Astra."
+            image: /ai/images/2026/managing-frontier-ai-risk.jpg
+            image_alt: "Social image from OpenAI’s frontier-risk management post"
+
+  - id: 2026-11-17
+    heading: "Tuesday, Nov 17, 2026"
+    summary: >
+      OpenAI released GPT-6.2 Astra and Sol and launched ChatGPT for Sales,
+      Anthropic said Claude Fable 5.2 solved two open black-hole physics
+      problems, and Google made Gemini Tasks free in six countries.
+    sections:
+      - label: Models & Releases
+        pill: Models
+        items:
+          - title: "OpenAI releases GPT-6.2 Astra and Sol, its latest frontier and everyday models"
+            source: OpenAI
+            url: https://openai.com/index/introducing-gpt-6-2-astra-sol/
+            date: 2026-11-17
+            summary: "Astra API prices are 20% lower, at $8 and $40 per million tokens. Sol stays at $2 and $10."
+            image: /ai/images/2026/gpt-6-2-astra-sol.jpg
+            image_alt: "Graphic of a comet and a moon with the words Astra, GPT-6.2, and Sol"
+
+      - label: Research
+        pill: Research
+        items:
+          - title: "Anthropic says Claude Fable 5.2 solved two open black-hole physics problems"
+            source: Anthropic
+            url: https://www.anthropic.com/research/claude-black-hole-physics
+            date: 2026-11-17
+            summary: "Anthropic reports a Hawking–Page calculation and a modular-bootstrap proof, presented as research claims."
+            image: /ai/images/2026/claude-black-hole-physics.jpg
+            image_alt: "Illustration of a black hole in a marbled blue and gold field"
+
+      - label: Tools
+        pill: Tools
+        items:
+          - title: "Gemini Tasks rolls out free in six countries on Gemini 4 Hydrogen"
+            source: Google
+            url: https://blog.google/innovation-and-ai/products/gemini-app/tasks-in-gemini-free-new-features/
+            date: 2026-11-17
+            summary: "It is free in the U.S., Japan, Korea, Canada, Australia, and India. Switch from Chat to Task to hand off work."
+            image: /ai/images/2026/gemini-tasks-free.jpg
+            image_alt: "Social image for Google’s Gemini Tasks announcement"
+
+          - title: "ChatGPT for Sales adds a dedicated plugin and more than 30 partner tools"
+            source: OpenAI
+            url: https://openai.com/index/introducing-chatgpt-for-sales/
+            date: 2026-11-17
+            summary: "It is meant to help sellers research prospects, prepare pitches, and update a CRM from ChatGPT."
+            image: /ai/images/2026/chatgpt-for-sales.jpg
+            image_alt: "Social image from OpenAI’s ChatGPT for Sales announcement"
