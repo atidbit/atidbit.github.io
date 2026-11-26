@@ -16,6 +16,10 @@
 #   6. Run the sensitive-info check (no secrets, keys, or personal details).
 #   7. Follow DAILY-RUNBOOK.md to commit, export a patch, and publish.
 #
+# Each day may include a `stocks:` snapshot (as_of, as_of_label,
+# source, quotes) so archive pages keep that session's prices.
+# Filled by fetch_stocks.py from Yahoo Finance. Do not invent quotes.
+#
 # Headlines and summaries are short paraphrases; every item.url must be a
 # verified original-article link.
 
@@ -52,6 +56,62 @@ days:
             summary: "The framework uses multi-agent simulations with a hidden motive and a 20,000-example dataset to test what an assistant can infer from a user’s story."
             image: /ai/images/2026/verifiable-social-reasoning.jpg
             image_alt: "Google Research wordmark with a collage of research imagery"
+    stocks:
+      as_of: "2026-11-25"
+      as_of_label: "Prices as of market close Wed Nov 25, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 149.30
+          change: -6.08
+          change_pct: -3.91
+        - ticker: MSFT
+          name: Microsoft
+          price: 489.93
+          change: -6.20
+          change_pct: -1.25
+        - ticker: GOOGL
+          name: Alphabet
+          price: 273.10
+          change: -5.95
+          change_pct: -2.13
+        - ticker: META
+          name: Meta
+          price: 609.89
+          change: 20.07
+          change_pct: 3.40
+        - ticker: AMZN
+          name: Amazon
+          price: 244.43
+          change: -7.86
+          change_pct: -3.12
+        - ticker: AAPL
+          name: Apple
+          price: 355.58
+          change: 1.51
+          change_pct: 0.43
+        - ticker: AMD
+          name: AMD
+          price: 406.03
+          change: -7.24
+          change_pct: -1.75
+        - ticker: TSM
+          name: TSMC
+          price: 342.34
+          change: -6.86
+          change_pct: -1.96
+        - ticker: AVGO
+          name: Broadcom
+          price: 300.86
+          change: -0.22
+          change_pct: -0.07
+        - ticker: PLTR
+          name: Palantir
+          price: 163.59
+          change: 2.41
+          change_pct: 1.50
 
   - id: 2026-11-24
     heading: "Tuesday, Nov 24, 2026"
@@ -81,6 +141,62 @@ days:
             summary: "Lab tests with Onava found binding evidence across five targets. Specialized models still helped pick candidates."
             image: /ai/images/2026/gpt-6-protein-design.jpg
             image_alt: "Title card reading GPT-6 models demonstrate intrinsic protein-design capabilities, on a pink-to-green background"
+    stocks:
+      as_of: "2026-11-24"
+      as_of_label: "Prices as of market close Tue Nov 24, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 155.38
+          change: -9.67
+          change_pct: -5.86
+        - ticker: MSFT
+          name: Microsoft
+          price: 496.13
+          change: 3.63
+          change_pct: 0.74
+        - ticker: GOOGL
+          name: Alphabet
+          price: 279.05
+          change: -3.05
+          change_pct: -1.08
+        - ticker: META
+          name: Meta
+          price: 589.82
+          change: -7.78
+          change_pct: -1.30
+        - ticker: AMZN
+          name: Amazon
+          price: 252.29
+          change: -3.10
+          change_pct: -1.21
+        - ticker: AAPL
+          name: Apple
+          price: 354.07
+          change: 4.99
+          change_pct: 1.43
+        - ticker: AMD
+          name: AMD
+          price: 413.27
+          change: -40.19
+          change_pct: -8.86
+        - ticker: TSM
+          name: TSMC
+          price: 349.20
+          change: -14.40
+          change_pct: -3.96
+        - ticker: AVGO
+          name: Broadcom
+          price: 301.08
+          change: -12.47
+          change_pct: -3.98
+        - ticker: PLTR
+          name: Palantir
+          price: 161.18
+          change: 1.82
+          change_pct: 1.14
 
   - id: 2026-11-23
     heading: "Monday, Nov 23, 2026"
@@ -98,6 +214,62 @@ days:
             summary: "DeepMind reports an 11.8× cost cut for a fusion-related circuit and is open-sourcing its Lean library."
             image: /ai/images/2026/quantum-algorithms-agents.jpg
             image_alt: "Title card for DeepMind’s quantum-algorithm research, with a glowing sphere illustration"
+    stocks:
+      as_of: "2026-11-23"
+      as_of_label: "Prices as of market close Mon Nov 23, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 165.05
+          change: 39.52
+          change_pct: 31.48
+        - ticker: MSFT
+          name: Microsoft
+          price: 492.50
+          change: 7.98
+          change_pct: 1.65
+        - ticker: GOOGL
+          name: Alphabet
+          price: 282.10
+          change: 16.81
+          change_pct: 6.34
+        - ticker: META
+          name: Meta
+          price: 597.60
+          change: 36.76
+          change_pct: 6.55
+        - ticker: AMZN
+          name: Amazon
+          price: 255.39
+          change: 8.57
+          change_pct: 3.47
+        - ticker: AAPL
+          name: Apple
+          price: 349.08
+          change: 6.52
+          change_pct: 1.90
+        - ticker: AMD
+          name: AMD
+          price: 453.46
+          change: 29.07
+          change_pct: 6.85
+        - ticker: TSM
+          name: TSMC
+          price: 363.60
+          change: 44.89
+          change_pct: 14.08
+        - ticker: AVGO
+          name: Broadcom
+          price: 313.55
+          change: 9.14
+          change_pct: 3.00
+        - ticker: PLTR
+          name: Palantir
+          price: 159.36
+          change: 15.87
+          change_pct: 11.06
 
   - id: 2026-11-20
     heading: "Friday, Nov 20, 2026"
@@ -126,6 +298,62 @@ days:
             summary: "Including the underwriters’ full option, 1.127 billion Class A shares were sold. The stock trades on Nasdaq as ANT."
             image: /ai/images/2026/anthropic-ipo-close.jpg
             image_alt: "The Anthropic wordmark on a cream background"
+    stocks:
+      as_of: "2026-11-20"
+      as_of_label: "Prices as of market close Fri Nov 20, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 125.53
+          change: -20.45
+          change_pct: -14.01
+        - ticker: MSFT
+          name: Microsoft
+          price: 484.52
+          change: -13.78
+          change_pct: -2.77
+        - ticker: GOOGL
+          name: Alphabet
+          price: 265.29
+          change: -7.37
+          change_pct: -2.70
+        - ticker: META
+          name: Meta
+          price: 560.84
+          change: -35.38
+          change_pct: -5.93
+        - ticker: AMZN
+          name: Amazon
+          price: 246.82
+          change: -10.55
+          change_pct: -4.10
+        - ticker: AAPL
+          name: Apple
+          price: 342.56
+          change: -6.65
+          change_pct: -1.90
+        - ticker: AMD
+          name: AMD
+          price: 424.39
+          change: -64.80
+          change_pct: -13.25
+        - ticker: TSM
+          name: TSMC
+          price: 318.71
+          change: -33.38
+          change_pct: -9.48
+        - ticker: AVGO
+          name: Broadcom
+          price: 304.41
+          change: -42.24
+          change_pct: -12.19
+        - ticker: PLTR
+          name: Palantir
+          price: 143.49
+          change: -10.19
+          change_pct: -6.63
 
   - id: 2026-11-19
     heading: "Thursday, Nov 19, 2026"
@@ -143,6 +371,62 @@ days:
             summary: "Developers can build interactive 720p environments with native audio and real-time controls."
             image: /ai/images/2026/genie-4-gemini-api.jpg
             image_alt: "A person in a car at night under neon signs, with the words Genie 4"
+    stocks:
+      as_of: "2026-11-19"
+      as_of_label: "Prices as of market close Thu Nov 19, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 145.98
+          change: -4.98
+          change_pct: -3.30
+        - ticker: MSFT
+          name: Microsoft
+          price: 498.30
+          change: -9.99
+          change_pct: -1.97
+        - ticker: GOOGL
+          name: Alphabet
+          price: 272.66
+          change: -9.78
+          change_pct: -3.46
+        - ticker: META
+          name: Meta
+          price: 596.22
+          change: -20.16
+          change_pct: -3.27
+        - ticker: AMZN
+          name: Amazon
+          price: 257.37
+          change: -10.37
+          change_pct: -3.87
+        - ticker: AAPL
+          name: Apple
+          price: 349.21
+          change: -3.24
+          change_pct: -0.92
+        - ticker: AMD
+          name: AMD
+          price: 489.19
+          change: -40.95
+          change_pct: -7.72
+        - ticker: TSM
+          name: TSMC
+          price: 352.09
+          change: -10.53
+          change_pct: -2.90
+        - ticker: AVGO
+          name: Broadcom
+          price: 346.65
+          change: -7.40
+          change_pct: -2.09
+        - ticker: PLTR
+          name: Palantir
+          price: 153.68
+          change: -2.99
+          change_pct: -1.91
 
   - id: 2026-11-18
     heading: "Wednesday, Nov 18, 2026"
@@ -180,6 +464,62 @@ days:
             summary: "OpenAI describes layered safeguards, trains frontier models offline, and says it has held back models such as GPT-6.1 Astra."
             image: /ai/images/2026/managing-frontier-ai-risk.jpg
             image_alt: "Social image from OpenAI’s frontier-risk management post"
+    stocks:
+      as_of: "2026-11-18"
+      as_of_label: "Prices as of market close Wed Nov 18, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 150.96
+          change: -4.50
+          change_pct: -2.89
+        - ticker: MSFT
+          name: Microsoft
+          price: 508.29
+          change: 2.05
+          change_pct: 0.40
+        - ticker: GOOGL
+          name: Alphabet
+          price: 282.44
+          change: 2.24
+          change_pct: 0.80
+        - ticker: META
+          name: Meta
+          price: 616.38
+          change: -2.49
+          change_pct: -0.40
+        - ticker: AMZN
+          name: Amazon
+          price: 267.74
+          change: 9.85
+          change_pct: 3.82
+        - ticker: AAPL
+          name: Apple
+          price: 352.45
+          change: 0.54
+          change_pct: 0.15
+        - ticker: AMD
+          name: AMD
+          price: 530.14
+          change: 26.73
+          change_pct: 5.31
+        - ticker: TSM
+          name: TSMC
+          price: 362.62
+          change: 2.93
+          change_pct: 0.81
+        - ticker: AVGO
+          name: Broadcom
+          price: 354.05
+          change: 12.45
+          change_pct: 3.64
+        - ticker: PLTR
+          name: Palantir
+          price: 156.67
+          change: 0.11
+          change_pct: 0.07
 
   - id: 2026-11-17
     heading: "Tuesday, Nov 17, 2026"
@@ -228,3 +568,59 @@ days:
             summary: "It is meant to help sellers research prospects, prepare pitches, and update a CRM from ChatGPT."
             image: /ai/images/2026/chatgpt-for-sales.jpg
             image_alt: "Social image from OpenAI’s ChatGPT for Sales announcement"
+    stocks:
+      as_of: "2026-11-17"
+      as_of_label: "Prices as of market close Tue Nov 17, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 155.46
+          change: -0.68
+          change_pct: -0.44
+        - ticker: MSFT
+          name: Microsoft
+          price: 506.24
+          change: -11.75
+          change_pct: -2.27
+        - ticker: GOOGL
+          name: Alphabet
+          price: 280.20
+          change: -3.52
+          change_pct: -1.24
+        - ticker: META
+          name: Meta
+          price: 618.87
+          change: -7.54
+          change_pct: -1.20
+        - ticker: AMZN
+          name: Amazon
+          price: 257.89
+          change: 0.14
+          change_pct: 0.05
+        - ticker: AAPL
+          name: Apple
+          price: 351.91
+          change: -0.87
+          change_pct: -0.25
+        - ticker: AMD
+          name: AMD
+          price: 503.41
+          change: -0.87
+          change_pct: -0.17
+        - ticker: TSM
+          name: TSMC
+          price: 359.69
+          change: -13.76
+          change_pct: -3.68
+        - ticker: AVGO
+          name: Broadcom
+          price: 341.60
+          change: 8.20
+          change_pct: 2.46
+        - ticker: PLTR
+          name: Palantir
+          price: 156.56
+          change: -3.83
+          change_pct: -2.39
