@@ -96,6 +96,72 @@ days:
             url: https://www.softbank.jp/en/corp/news/press/sbkk/2026/20261127_01/
             date: 2026-11-27
             summary: "SoftBank says its AI data-center software stack is the first Japanese product certified for both CNCF Kubernetes Conformance and Kubernetes AI Conformance."
+    stocks:
+      as_of: "2026-11-25"
+      as_of_label: "Prices as of market close Wed Nov 25, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 149.30
+          change: -6.08
+          change_pct: -3.91
+        - ticker: MSFT
+          name: Microsoft
+          price: 489.93
+          change: -6.20
+          change_pct: -1.25
+        - ticker: GOOGL
+          name: Alphabet
+          price: 273.10
+          change: -5.95
+          change_pct: -2.13
+        - ticker: META
+          name: Meta
+          price: 609.89
+          change: 20.07
+          change_pct: 3.40
+        - ticker: AMZN
+          name: Amazon
+          price: 244.43
+          change: -7.86
+          change_pct: -3.12
+        - ticker: AAPL
+          name: Apple
+          price: 355.58
+          change: 1.51
+          change_pct: 0.43
+        - ticker: AMD
+          name: AMD
+          price: 406.03
+          change: -7.24
+          change_pct: -1.75
+        - ticker: TSM
+          name: TSMC
+          price: 342.34
+          change: -6.86
+          change_pct: -1.96
+        - ticker: AVGO
+          name: Broadcom
+          price: 300.86
+          change: -0.22
+          change_pct: -0.07
+        - ticker: PLTR
+          name: Palantir
+          price: 163.59
+          change: 2.41
+          change_pct: 1.50
+        - ticker: ANT
+          name: Anthropic
+          price: 82.79
+          change: 0.88
+          change_pct: 1.07
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 127.44
+          change: 1.63
+          change_pct: 1.30
 
   - id: 2026-11-26
     heading: "Thursday, Nov 26, 2026"
