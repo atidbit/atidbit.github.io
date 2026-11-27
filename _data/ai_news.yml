@@ -31,6 +31,72 @@ lede: >
 canonical: https://atidbit.io/ai/
 
 days:
+  - id: 2026-11-27
+    heading: "Friday, Nov 27, 2026"
+    summary: >
+      Poland signed a roughly $300 million deal for Palantir's Maven AI
+      system, the UAE named the first partners for its FedAI government
+      agentic-AI platform, and Japan's JERA was reported to be in data-center
+      talks with Anthropic, Meta, and other U.S. tech firms.
+    sections:
+      - label: Business & Funding
+        pill: Business
+        items:
+          - title: "Poland signs a $300 million deal for Palantir's Maven AI system"
+            source: POLITICO Europe
+            url: https://www.politico.eu/article/wed-be-stupid-not-to-poland-defends-300m-military-ai-deal-with-palantir/
+            date: 2026-11-27
+            summary: "The five-year agreement expands AI use across Poland's armed forces; the defense minister said keys, servers, and data will stay with the Polish military."
+            image: /ai/images/2026/poland-palantir-maven.jpg
+            image_alt: "Palantir logo on a wall with a person walking past"
+
+          - title: "Japan's JERA in talks with Anthropic and Meta on data centers near power plants"
+            source: The Straits Times (Reuters)
+            url: https://www.straitstimes.com/asia/east-asia/japans-jera-enters-talks-with-anthropic-meta-to-build-data-centres-nikkei-reports
+            date: 2026-11-27
+            summary: "Japan's largest power generator is also in discussions with Amazon, Microsoft, and Google about data centers near Tokyo-area power plants, the Nikkei reported."
+            image: /ai/images/2026/jera-data-centers.jpg
+            image_alt: "JERA logo seen through a magnifying glass"
+
+      - label: Research
+        pill: Research
+        items:
+          - title: "Huawei to present a custom HBM design with twice HBM4's interface width"
+            source: Tech Times
+            url: https://www.techtimes.com/articles/331658/20261127/huawei-lists-4096-pin-hbm-memory-chip-conference-twice-hbm4-width-no-speed-disclosed.htm
+            date: 2026-11-27
+            summary: "A paper slated for ISSCC in February describes a 4,096-pin AI memory design versus HBM4's 2,048; no speed, bandwidth, or capacity figures have been disclosed."
+            image: /ai/images/2026/huawei-hbm-isscc.jpg
+            image_alt: "Huawei sign inside a building"
+
+      - label: Policy & Safety
+        pill: Policy
+        items:
+          - title: "UAE names first partners for its FedAI government agentic-AI platform"
+            source: Dubai Media Office
+            url: https://www.mediaoffice.ae/en/news/2026/novemebr/27-11/hamdan-bin-mohammed-witnessed-the-uae-governments-announcement
+            date: 2026-11-27
+            summary: "Partners including G42, Microsoft, Google, AWS, Oracle, and Cohere will support a shared platform as the UAE aims to move half of government services to agentic AI within two years."
+            image: /ai/images/2026/uae-fedai.jpg
+            image_alt: "Officials and partners at the FedAI announcement"
+
+      - label: Tools
+        pill: Tools
+        items:
+          - title: "Lablup releases AI:GO 2.0, a free local AI agent app"
+            source: Lablup
+            url: https://www.lablup.com/press/2026-11-lablup-launches-ai-go-v2
+            date: 2026-11-27
+            summary: "The desktop app runs language, vision, image, and speech models on a PC without the cloud, and its Cowork agent edits files inside a sandboxed working folder."
+            image: /ai/images/2026/lablup-ai-go-2.jpg
+            image_alt: "AI:GO 2.0 app home screen"
+
+          - title: "SoftBank's Infrinia AI Cloud OS earns Kubernetes AI Conformance"
+            source: SoftBank Corp.
+            url: https://www.softbank.jp/en/corp/news/press/sbkk/2026/20261127_01/
+            date: 2026-11-27
+            summary: "SoftBank says its AI data-center software stack is the first Japanese product certified for both CNCF Kubernetes Conformance and Kubernetes AI Conformance."
+
   - id: 2026-11-26
     heading: "Thursday, Nov 26, 2026"
     summary: >
@@ -49,6 +115,12 @@ days:
             summary: "The compact document model turns page images into structured data; NVIDIA released synthetic chart and table datasets, a fine-tuning guide, and a DFlash2 speculator for faster inference."
             image: /ai/images/2026/nemotron-3-5-parse-open-data.jpg
             image_alt: "Nemotron 3.5 Parse title graphic"
+
+          - title: "DeepL launches Aure v2 for faster live voice translation"
+            source: DeepL
+            url: https://www.deepl.com/en/press-release/aure-v2
+            date: 2026-11-26
+            summary: "The new end-to-end voice translation model, launched at DeepL's Unmute Summit in Tokyo, cuts translation delays in DeepL Voice by 50% compared with its predecessor, DeepL says."
 
       - label: Research
         pill: Research
@@ -75,6 +147,14 @@ days:
             summary: "Citing the Financial Times, the report says server makers told customers in Singapore, Thailand, Malaysia, and Indonesia to expect paused orders after new U.S. cloud export rules."
             image: /ai/images/2026/nvidia-southeast-asia-shipments.jpg
             image_alt: "Nvidia logo on a building"
+
+          - title: "Switzerland confirms first cyberattacks carried out with AI agents"
+            source: swissinfo.ch
+            url: https://www.swissinfo.ch/eng/swiss-ai/switzerland-reports-first-ai-based-cyberattacks-on-critical-infrastructure/92440400
+            date: 2026-11-26
+            summary: "Switzerland's National Cyber Security Centre says attackers used agentic offensive frameworks against organizations and critical-infrastructure operators, and warns that faster, more automated attacks are coming."
+            image: /ai/images/2026/swiss-ncsc-ai-agent-attacks.jpg
+            image_alt: "Power lines against a blue sky"
 
       - label: Tools
         pill: Tools
