@@ -31,6 +31,151 @@ lede: >
 canonical: https://atidbit.io/ai/
 
 days:
+  - id: 2026-11-28
+    heading: "Saturday, Nov 28, 2026"
+    summary: >
+      Reuters reported that U.S. chip rules and anti-distillation safeguards are
+      slowing China's Z.AI and Moonshot AI, Japan outlined penalties in a draft
+      overhaul of its AI law, and Elon Musk said Google wants to rent more
+      computing capacity from SpaceX.
+    sections:
+      - label: Business & Funding
+        pill: Business
+        items:
+          - title: "Musk says Google wants to rent more computing capacity from SpaceX"
+            source: CNBC (Reuters)
+            url: https://www.cnbc.com/2026/11/28/musk-says-google-wants-to-rent-more-computing-capacity-from-spacex.html
+            date: 2026-11-28
+            summary: "Musk gave no details in his post on X. Google already pays SpaceX $920 million a month through June 2029 for capacity that includes about 110,000 Nvidia GPUs."
+            image: /ai/images/2026/google-spacex-compute.jpg
+            image_alt: "Google sign outside a company building"
+
+          - title: "Canada adds $700 million to its AI Compute Access Fund"
+            source: Government of Canada
+            url: https://www.canada.ca/en/innovation-science-economic-development/news/2026/11/government-of-canada-boosts-the-ai-compute-access-fund-with-700-million-expansion.html
+            date: 2026-11-26
+            summary: "The expansion brings the fund to $1 billion to help Canadian companies cover AI computing costs, with new calls for proposals and more incentives for sovereign compute."
+
+      - label: Policy & Safety
+        pill: Policy
+        items:
+          - title: "U.S. chip curbs and distillation safeguards slow China's top AI labs"
+            source: Reuters (via Yahoo Finance)
+            url: https://finance.yahoo.com/news/exclusive-us-chip-curbs-distillation-071923947.html
+            date: 2026-11-26
+            summary: "Sources say Z.AI's roughly 3-trillion-parameter GLM-5.5 has slipped, and Moonshot AI's gap between major releases could double to a year if it loses overseas compute."
+            image: /ai/images/2026/china-ai-labs-chip-curbs.jpg
+            image_alt: "Moonshot AI logo illustration"
+
+          - title: "Japan outlines penalties in a draft amendment to its AI law"
+            source: Nippon.com (Jiji Press)
+            url: https://www.nippon.com/en/articles/-/58131
+            date: 2026-11-27
+            summary: "A government AI panel's outline would strengthen state authority and require providers of advanced AI services to take steps to prevent cyberattacks."
+            image: /ai/images/2026/japan-ai-law-penalties.jpg
+            image_alt: "A Japanese official speaking into a microphone at a meeting"
+
+          - title: "Banned Nvidia Blackwell racks surface at a Shanghai data center"
+            source: Tom's Hardware
+            url: https://www.tomshardware.com/tech-industry/artificial-intelligence/banned-nvidia-blackwell-ai-racks-surface-in-china-data-center-tied-to-usd14m-loan-and-alleged-spy-alice-huang
+            date: 2026-11-28
+            summary: "Export-controlled Blackwell hardware turned up at a site tied to a roughly $14 million loan, raising new questions about how restricted AI chips reach China."
+            image: /ai/images/2026/blackwell-shanghai.jpg
+            image_alt: "Rows of server racks in a data center"
+
+          - title: "Indonesia prepares three measures in response to U.S. AI chip export rules"
+            source: ANTARA News
+            url: https://en.antaranews.com/news/445911/indonesia-prepares-3-measures-to-address-us-ai-chip-export-controls
+            date: 2026-11-27
+            summary: "The digital affairs minister said covered AI chips and servers can still be exported with case-by-case licenses, and most public AI services fall outside the rule."
+            image: /ai/images/2026/indonesia-ai-chip-measures.jpg
+            image_alt: "Indonesia's digital affairs minister speaking to reporters"
+
+          - title: "Portland weighs a yearlong pause on new city AI software"
+            source: OPB
+            url: https://www.opb.org/article/2026/11/27/portland-considers-ai-moratorium/
+            date: 2026-11-27
+            summary: "Council President Jamie Dunphy wants time to set up a data privacy office and AI guardrails; the City Council will discuss the proposal Dec. 2."
+            image: /ai/images/2026/portland-ai-moratorium.jpg
+            image_alt: "Portland City Council President Jamie Dunphy at the council dais"
+
+      - label: Research
+        pill: Research
+        items:
+          - title: "Researchers find five malicious GGUF models on Hugging Face"
+            source: Malspark
+            url: https://malspark.com/blog/malicious-gguf-models-hugging-face/
+            date: 2026-11-27
+            summary: "A scan of every public Hugging Face model repo found poisoned chat templates and hidden malware in model files, with 2,428 downloads; an open-source scanner detects them."
+            image: /ai/images/2026/hf-malicious-gguf.jpg
+            image_alt: "Graphic reading Malicious LLM Models on Hugging Face"
+    stocks:
+      as_of: "2026-11-27"
+      as_of_label: "Prices as of market close Fri Nov 27, 2026 (ET)"
+      source: Yahoo Finance
+      source_note: Daily U.S. market close from the Yahoo Finance chart API.
+      quotes:
+        - ticker: NVDA
+          name: NVIDIA
+          price: 150.49
+          change: 1.19
+          change_pct: 0.80
+        - ticker: MSFT
+          name: Microsoft
+          price: 492.85
+          change: 2.92
+          change_pct: 0.60
+        - ticker: GOOGL
+          name: Alphabet
+          price: 274.96
+          change: 1.86
+          change_pct: 0.68
+        - ticker: META
+          name: Meta
+          price: 628.96
+          change: 19.07
+          change_pct: 3.13
+        - ticker: AMZN
+          name: Amazon
+          price: 254.12
+          change: 9.69
+          change_pct: 3.96
+        - ticker: AAPL
+          name: Apple
+          price: 358.54
+          change: 2.96
+          change_pct: 0.83
+        - ticker: AMD
+          name: AMD
+          price: 424.54
+          change: 18.51
+          change_pct: 4.56
+        - ticker: TSM
+          name: TSMC
+          price: 353.34
+          change: 11.00
+          change_pct: 3.21
+        - ticker: AVGO
+          name: Broadcom
+          price: 312.34
+          change: 11.48
+          change_pct: 3.82
+        - ticker: PLTR
+          name: Palantir
+          price: 172.17
+          change: 8.58
+          change_pct: 5.24
+        - ticker: ANT
+          name: Anthropic
+          price: 91.88
+          change: 9.09
+          change_pct: 10.98
+        - ticker: SPCX
+          name: SpaceX / xAI
+          price: 133.59
+          change: 6.15
+          change_pct: 4.83
+
   - id: 2026-11-27
     heading: "Friday, Nov 27, 2026"
     summary: >
